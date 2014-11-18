@@ -6,7 +6,9 @@ Template.projectForm.events({
 		var project = {
 			title: title,
 			createdAt: new Date(),
-			createdBy: "Dennis"
+			createdBy: "Dennis", // change to grab current user
+			screens: [], // where all the projects screen objects will live
+			collaborators: [] // where all the project collaborators live
 		};
 
 		Projects.insert(project);
