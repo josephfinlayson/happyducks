@@ -16,13 +16,18 @@
                     {{#each projects}}
                     <div class="panel panel-default">
                         <div class="panel-body">
-
+                            
+                            {{#linkTo route="project.show"}}
+                            
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
                                 {{title}}
                             </div>
+                            
+                            {{/linkTo}}
 
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <button type="button" class="btn btn-danger" id="delete">delete</button>
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                                <button type="button" class="btn btn-danger" id="delete">delete
+                                </button>
                             </div>
 
                         </div>
