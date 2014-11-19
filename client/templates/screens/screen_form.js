@@ -6,12 +6,23 @@ Template.screenForm.events({
         var screen = {
             title: title,
             createdAt: new Date(),
-            createdBy: "Dennis" // change dynamically
+            createdBy: "Dennis", // change dynamically
+            userStories: [] // is this the smartest place for userStories??
         }
 
-        // WHY ISN'T THIS BEING ADDED TO THE SERVER MONGO COLLECTION?
-        this.screens.push(screen) // adds the screen to the current project 
-        console.log(this.screens)
+        // adds the screen to the current project 
+        Projects.update({
+            _id: this._id
+        }, {
+            $push: {
+                screens: screen
+            }
+        })
+
+
+        console.log(this)
+
+        // reset the form
         var form = template.find(".screenForm");
         form.reset();
     }

@@ -1,25 +1,28 @@
 <template name="projectPage">
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <div class="panel panel-primary">
+
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{title}}</h3>
+                    <h3 class="panel-title">Project Title: {{title}}</h3>
                 </div>
                 <div class="panel-body">
-                    {{> screenForm}}
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        {{> screenForm}} 
+                        <p> </p>
+                        	{{#each screens}} 
+                        		{{> screen}} 
+                        	{{/each}}
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                        
+                    </div>
                 </div>
-                <div class="panel-body col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{#each listScreens}}
-                    	{{_id}}
-                    {{/each}}
-                </div>
-
-
             </div>
+
+
         </div>
-
-
     </div>
+
 </template>
