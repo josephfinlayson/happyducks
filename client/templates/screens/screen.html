@@ -7,7 +7,9 @@
 	  <div class="panel-body">
 			{{> userStoryForm}}
 			<p> </p>
-			stories go here...
+			{{#each listUserStories}}
+				<p>{{title}}</p>
+			{{/each}}
 	  </div>
 </div>
 

@@ -2,12 +2,15 @@ Template.userStoryForm.events({
 	'submit .userStoryForm': function (e, template) {
 		e.preventDefault();
 
+		var self = this;
+
 		// grab the title
 		var title = template.find("#userStoryTitle").value
 
 		// create the userStory object
 		var userStory = {
 			title: title,
+			screen_id: this._id,
 			createdAt: new Date(),
 			createdBy: "Dennis", // change to set dynamically
 			linksTo: [] // an array that contains the link targets
@@ -15,8 +18,8 @@ Template.userStoryForm.events({
 
 		// add the current userStory to the screen object
 		
-
-		console.log(this)
+		Userstories.insert(userStory)
+		console.log(self)
 
 
 		// reset the form
