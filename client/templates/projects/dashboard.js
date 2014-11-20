@@ -1,13 +1,10 @@
-Template.projectList.helpers({
+Template.dashboard.helpers({
     projects: function() {
         return Projects.find()
-    },
-    removeProject: function() {
-        this.remove();
     }
 });
 
-Template.projectList.events({
+Template.dashboard.events({
     'click #delete': function(e, template) {
         e.preventDefault();
 
@@ -17,3 +14,5 @@ Template.projectList.events({
         }
     }
 });
+
+
