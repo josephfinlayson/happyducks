@@ -1,5 +1,6 @@
 Template.projectPage.helpers({
 	listScreens: function () {
-		return Screens.find()
+		var id = this._id
+		return Screens.find({project_id: id})
 	}
 });

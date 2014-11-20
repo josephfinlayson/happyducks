@@ -10,6 +10,7 @@ Template.userStoryForm.events({
 		// create the userStory object
 		var userStory = {
 			title: title,
+			project_id: this.project_id,
 			screen_id: this._id,
 			createdAt: new Date(),
 			createdBy: "Dennis", // change to set dynamically

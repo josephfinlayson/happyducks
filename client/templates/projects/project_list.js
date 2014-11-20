@@ -11,7 +11,12 @@ Template.projectList.events({
 	'click #delete': function (e, template) {
 		e.preventDefault();
 
-		var project = this._id;
-		Projects.remove(project);
+		if(confirm("You sure? \n1. this cannot be un-done\n2. it's permanent")) {
+			var project = this._id;
+			Screens.remove({project_id: this._id}) // remove the screens
+			Userstories.remove({project_id: this._id}) // remove the screens
+			Projects.remove(project); // remove the project
+		}
+		
 	}
 });
