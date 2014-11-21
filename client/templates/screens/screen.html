@@ -1,16 +1,20 @@
 <template name="screen">
 
-<div class="panel panel-default">
-	  <div class="panel-heading">
-			<h3 class="panel-title">{{title}}</h3>
-	  </div>
-	  <div class="panel-body">
-			{{> userStoryForm}}
-			<p> </p>
-			{{#each listUserStories}}
-				<p>{{title}}</p>
-			{{/each}}
-	  </div>
-</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{title}}
+                <button type="button" class="btn btn-default" id="rename" data-collection="Screens">rename</button>
+            </h3>
+        </div>
+        <div class="panel-body">
+            {{> userStoryForm}}
+            <p></p>
+            {{#each listUserStories}}
+            <p>{{title}}
+                <button type="button" class="btn btn-default" id="renameStory" data-collection="Userstories">rename</button>
+            </p>
+            {{/each}}
+        </div>
+    </div>
 
 </template>

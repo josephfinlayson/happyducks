@@ -9,10 +9,30 @@ Meteor.methods({
         Userstories.remove({ project_id: object }) // remove the screens	
 
     },
-    updateTitle: function(object, newTitle) {
-        Projects.update(
-        	{_id: object},
-        	{ title: newTitle }
-        	);
+    updateTitle: function(collection, object, newTitle) {
+    	
+    	// identify the current document by ID
+    	var docID = {_id: object._id};
+    	// MongoDB command to set the new title
+    	var setTitle = {$set: { title: newTitle } };
+
+    	// Choose which collection to change
+    	switch (collection) {
+    		case "Projects":
+    		Projects.update( docID, setTitle)
+    		break;
+
+    		case "Screens":
+    		Screens.update( docID, setTitle)
+    		break;
+
+    		case "Userstories":
+    		Userstories.update( docID, setTitle)
+    		break;
+
+    		default:
+    		console.error("something went wrong")
+    	}
+		
     }
 });

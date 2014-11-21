@@ -20,7 +20,6 @@ Template.userStoryForm.events({
 		// add the current userStory to the screen object
 		
 		Userstories.insert(userStory)
-		console.log(self)
 
 
 		// reset the form

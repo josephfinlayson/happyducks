@@ -13,9 +13,10 @@ Template.dashboard.events({
     'click #rename': function(e, template) {
         e.preventDefault();
 
-        var new_title = prompt("new title please");
-
-        Meteor.call("updateTitle", this._id, new_title)
+        var new_title = prompt("new title please")
+        var collection = template.find("#rename").dataset.collection;
+        	
+        Meteor.call("updateTitle", collection, this, new_title)
             
         }
 });
