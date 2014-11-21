@@ -1,9 +1,3 @@
-Template.dashboard.helpers({
-    projects: function() {
-        return Projects.find()
-    }
-});
-
 Template.dashboard.events({
     'click #delete': function(e, template) {
         e.preventDefault();
