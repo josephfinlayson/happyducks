@@ -13,7 +13,7 @@ Template.userStoryForm.events({
 			project_id: this.project_id,
 			screen_id: this._id,
 			createdAt: new Date(),
-			createdBy: "Dennis", // change to set dynamically
+			createdBy: Meteor.user(),
 			linksTo: [] // an array that contains the link targets
 		}
 

@@ -6,10 +6,10 @@ Template.projectForm.events({
 		var project = {
 			title: title,
 			createdAt: new Date(),
-			createdBy: "Dennis", // change to grab current user
+			createdBy: Meteor.user(), 
 			collaborators: [] // where all the project collaborators live
 		};
-
+		console.log(Meteor.user())
 		Projects.insert(project);
 
 		var form = template.find(".projectForm");

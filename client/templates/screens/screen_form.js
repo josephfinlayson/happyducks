@@ -7,7 +7,7 @@ Template.screenForm.events({
             title: title,
             project_id: self._id, // insert the project ID
             createdAt: new Date(),
-            createdBy: "Dennis", // change dynamically
+            createdBy: Meteor.user(), 
         }
 
         // adds the screen to the current project 
