@@ -34,5 +34,19 @@ Meteor.methods({
     		console.error("something went wrong")
     	}
 		
+    },
+    createProject: function(title) {
+        check(Meteor.userId(), String);
+        check(title, String);
+        var user = Meteor.user();
+        var project = {
+            title: title,
+            createdAt: new Date(),
+            createdBy: user.username, 
+            userId: user._id,
+            collaborators: [] // where all the project collaborators live
+        };
+        
+        Projects.insert(project);
     }
 });
