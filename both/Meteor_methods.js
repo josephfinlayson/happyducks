@@ -20,14 +20,17 @@ Meteor.methods({
     	switch (collection) {
     		case "Projects":
     		Projects.update( docID, setTitle)
+            console.log("Ding") 
     		break;
 
     		case "Screens":
     		Screens.update( docID, setTitle)
+            console.log("Ding") 
     		break;
 
     		case "Userstories":
     		Userstories.update( docID, setTitle)
+            console.log("Ding") 
     		break;
 
     		default:
@@ -45,7 +48,7 @@ Meteor.methods({
         } else {
             Screens.update({_id: screen_id}, {$set: {showOnCanvas: true}})
         }
-
+        console.log(screen.showOnCanvas)
         // todo: error handling
     },
     createProject: function(title) {

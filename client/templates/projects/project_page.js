@@ -3,9 +3,10 @@ Template.projectPage.helpers({
 		var id = this._id
 		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
 	},
-	screenOnCanvas: function (screen_id) {
-		// take the current screen div and place the exact same copy on the canvas div
-		console.log(screen_id)
+	screensOnCanvas: function () {
+		// find all screens with this project ID where the showOnCanvas value is true
+		var id = this
+		console.log(this)
 	}
 });
 

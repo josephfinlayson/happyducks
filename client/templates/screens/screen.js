@@ -10,10 +10,12 @@ Template.screen.events({
         e.preventDefault();
 
         var new_title = prompt("new title please");
-        var collection = template.find("#rename").dataset.collection;
+
+        // PURE JS DOESN'T WORK HERE? WHY?
+        var collection = $("#rename").data("collection"); // template.find("#rename").dataset.collection;
 
         Meteor.call("rename", collection, this, new_title)
-            
+           
         }
 });
 
@@ -22,7 +24,9 @@ Template.screen.events({
         e.preventDefault();
 
         var new_title = prompt("new title please");
-        var collection = template.find("#renameStory").dataset.collection;
+
+        // PURE JS DOESN'T WORK HERE? WHY?
+        var collection = $("#renameStory").data("collection"); // template.find("#renameStory").dataset.collection;
 
         Meteor.call("rename", collection, this, new_title)
             
