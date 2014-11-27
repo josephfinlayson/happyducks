@@ -38,11 +38,11 @@ Template.screen.events({
 });
 
 Template.projectPage.events({
-    'click #show': function (e, template) {
+    'click .toggleCanvasView': function (e, template) {
         e.preventDefault();
 
         // check which screen was clicked
-        var screen_id = $(".toggleCanvasView").data("screen_id"); // template.find("#show").dataset.screenid;
+        var screen_id = this._id; // template.find("#show").dataset.screenid;
 
         // set showOnCanvas for this screen to true
         console.log(screen_id)
