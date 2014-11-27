@@ -43,10 +43,42 @@ Meteor.methods({
             title: title,
             createdAt: new Date(),
             createdBy: user.username, 
-            userId: user._id,
+            userId: user._id, // move myself to collaboraters
+            // break the collaborators into a seperate collection??
             collaborators: [] // where all the project collaborators live
         };
         
         Projects.insert(project);
-    }
+    },
+    createScreen: function(title, project_id) {
+        check(Meteor.userId(), String);
+        check(title, String);
+        var user = Meteor.user();
+        var screen = {
+            title: title,
+            createdAt: new Date(),
+            createdBy: user.username,
+            project_id: project_id,
+            userId: user._id, // move myself to collaboraters?
+            collaborators: [] 
+        };
+        Screens.insert(screen);
+    },
+    createUserstory: function(title, project_id, screen_id) {
+        check(Meteor.userId(), String);
+        check(title, String);
+        var user = Meteor.user();
+        var userStory = {
+            title: title,
+            createdAt: new Date(),
+            createdBy: user.username, 
+            userId: user._id, // move myself to collaboraters?
+            project_id: project_id,
+            screen_id: screen_id,
+            collaborators: [] 
+        };
+        
+        Userstories.insert(userStory);
+
+    },
 });

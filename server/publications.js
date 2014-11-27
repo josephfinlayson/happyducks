@@ -1,11 +1,29 @@
 Meteor.publish("projects", function(){
-	return Projects.find();
+	var user = Meteor.users.findOne({_id: this.userId});
+	if (!user){
+		return;
+	} else {
+			var data = Projects.find({userId: this.userId});
+			return data;
+		}
 });
 
 Meteor.publish("screens", function(){
-	return Screens.find();
+	var user = Meteor.users.findOne({_id: this.userId});
+	if (!user){
+		return;
+	} else {
+			var data = Screens.find({userId: this.userId});
+			return data;
+		}
 });
 
 Meteor.publish("userstories", function(){
-	return Userstories.find();
+	var user = Meteor.users.findOne({_id: this.userId});
+	if (!user){
+		return;
+	} else {
+			var data = Userstories.find({userId: this.userId});
+			return data;
+		}
 });

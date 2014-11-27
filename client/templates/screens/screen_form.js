@@ -1,17 +1,11 @@
 Template.screenForm.events({
     'submit .screenForm': function(e, template) {
         e.preventDefault();
-        var self = this; // grab the current project object
-        var title = template.find("#screenTitle").value;
-        var screen = {
-            title: title,
-            project_id: self._id, // insert the project ID
-            createdAt: new Date(),
-            createdBy: Meteor.user(), 
-        }
 
-        // adds the screen to the current project 
-        Screens.insert(screen);
+        var title = template.find("#screenTitle").value;
+        var project_id = this._id; // grab the projectID from the projectPage data context
+
+        Meteor.call("createScreen", title, project_id);
 
         // reset the form
         var form = template.find(".screenForm");

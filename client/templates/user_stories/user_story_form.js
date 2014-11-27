@@ -6,20 +6,10 @@ Template.userStoryForm.events({
 
 		// grab the title
 		var title = template.find("#userStoryTitle").value
-
-		// create the userStory object
-		var userStory = {
-			title: title,
-			project_id: this.project_id,
-			screen_id: this._id,
-			createdAt: new Date(),
-			createdBy: Meteor.user(),
-			linksTo: [] // an array that contains the link targets
-		}
-
-		// add the current userStory to the screen object
+		var project_id = this.project_id; // grab the projectID from the screenPage data context
+		var screen_id = this._id; // grab the screenID that this userstory is associated with
 		
-		Userstories.insert(userStory)
+		Meteor.call("createUserstory", title, project_id, screen_id)
 
 
 		// reset the form
