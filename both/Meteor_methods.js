@@ -9,7 +9,7 @@ Meteor.methods({
         Userstories.remove({ project_id: object }) // remove the screens	
 
     },
-    updateTitle: function(collection, object, newTitle) {
+    rename: function(collection, object, newTitle) {
     	
     	// identify the current document by ID
     	var docID = {_id: object._id};
@@ -34,6 +34,19 @@ Meteor.methods({
     		console.error("something went wrong")
     	}
 		
+    },
+    showScreenOnCanvas: function (screen_id) {
+        
+        var screen = Screens.findOne({_id: screen_id})
+        
+        // WHY DOES THIS CONDITIONAL AND ITS RESULT SHOW UP IN MY TERMINAL?
+        if (screen.showOnCanvas) {
+            Screens.update({_id: screen_id}, {$set: {showOnCanvas: false}})
+        } else {
+            Screens.update({_id: screen_id}, {$set: {showOnCanvas: true}})
+        }
+
+        // todo: error handling
     },
     createProject: function(title) {
         check(Meteor.userId(), String);
@@ -60,6 +73,7 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
+            showOnCanvas: false,
             collaborators: [] 
         };
         Screens.insert(screen);
