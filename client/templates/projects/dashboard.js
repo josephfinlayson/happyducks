@@ -10,11 +10,11 @@ Template.dashboard.events({
 });
 
 Template.dashboard.events({
-    'click #rename': function(e, template) {
+    'click .renameProject': function(e, template) {
         e.preventDefault();
 
         var new_title = prompt("new title please")
-        var collection = template.find("#rename").dataset.collection;
+        var collection = template.find(".renameProject").dataset.collection;
         	
         Meteor.call("rename", collection, this, new_title)
             

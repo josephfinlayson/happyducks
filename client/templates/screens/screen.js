@@ -42,9 +42,15 @@ Template.projectPage.events({
         e.preventDefault();
 
         // check which screen was clicked
-        var screen_id = this.screen_id; // template.find("#show").dataset.screenid;
+        var screen_id = this.screen_id; 
+        // check which story was clicked
+        var story_id = this._id;
 
         // set showOnCanvas for this screen to true
         Meteor.call('showScreenOnCanvas', screen_id)
+
+        // highlight the clicked story
+        Meteor.call('highlightStory', story_id, screen_id)
+
     }
 });

@@ -10,9 +10,21 @@
             {{> userStoryForm}}
             <p></p>
             {{#each listUserStories}}
-            <p>{{title}}
+            <p>
+                
+                {{#if highlighted}}
+                <a href="#" class="toggleCanvasView" style="background-color: #B2FF99">
+                    {{title}}
+                </a>
+
+                {{else}}
+                <a href="#" class="toggleCanvasView" style="">
+                    {{title}}
+                </a>
+                {{/if}}
+
                 <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
-                <img src="/images/max.png" alt="" width="20px" height="20px" align="right" class="toggleCanvasView"> 
+                
             </p>
             {{/each}}
         </div>
