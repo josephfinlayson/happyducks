@@ -3,8 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">{{title}}
-                <button type="button" class="btn btn-default" id="rename" data-collection="Screens">rename</button>
-                <img src="/images/max.png" alt="" width="20px" height="20px" align="right" class="toggleCanvasView"> 
+                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
             </h3>
         </div>
         <div class="panel-body">
@@ -12,7 +11,8 @@
             <p></p>
             {{#each listUserStories}}
             <p>{{title}}
-                <button type="button" class="btn btn-default" id="renameStory" data-collection="Userstories">rename</button>
+                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
+                <img src="/images/max.png" alt="" width="20px" height="20px" align="right" class="toggleCanvasView"> 
             </p>
             {{/each}}
         </div>

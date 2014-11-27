@@ -6,13 +6,13 @@ Template.screen.helpers({
 });
 
 Template.screen.events({
-    'click #rename': function(e, template) {
+    'click .renameScreen': function(e, template) {
         e.preventDefault();
 
         var new_title = prompt("new title please");
 
         // PURE JS DOESN'T WORK HERE? WHY?
-        var collection = $("#rename").data("collection");
+        var collection = $(".renameScreen").data("collection");
 
         // template.find("#rename").dataset.collection;
 
@@ -22,7 +22,7 @@ Template.screen.events({
 });
 
 Template.screen.events({
-    'click #renameStory': function(e, template) {
+    'click .renameStory': function(e, template) {
         e.preventDefault();
 
         var new_title = prompt("new title please");
@@ -30,7 +30,7 @@ Template.screen.events({
         // var collection = $("#renameStory").data("collection");
 
         //works for me!
-        var collection = template.find("#renameStory").dataset.collection;
+        var collection = template.find(".renameStory").dataset.collection;
 
         Meteor.call("rename", collection, this, new_title)
 
@@ -42,10 +42,9 @@ Template.projectPage.events({
         e.preventDefault();
 
         // check which screen was clicked
-        var screen_id = this._id; // template.find("#show").dataset.screenid;
+        var screen_id = this.screen_id; // template.find("#show").dataset.screenid;
 
         // set showOnCanvas for this screen to true
-        console.log(screen_id)
         Meteor.call('showScreenOnCanvas', screen_id)
     }
 });
