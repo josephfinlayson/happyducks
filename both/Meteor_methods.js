@@ -48,7 +48,7 @@ Meteor.methods({
         } else {
             Screens.update({_id: screen_id}, {$set: {showOnCanvas: true}})
         }
-        console.log(screen.showOnCanvas)
+        console.log(screen)
         // todo: error handling
     },
     createProject: function(title) {

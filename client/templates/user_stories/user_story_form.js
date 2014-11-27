@@ -2,9 +2,7 @@ Template.userStoryForm.events({
 	'submit .userStoryForm': function (e, template) {
 		e.preventDefault();
 
-		var self = this;
 
-		// grab the title
 		var title = template.find("#userStoryTitle").value
 		var project_id = this.project_id; // grab the projectID from the screenPage data context
 		var screen_id = this._id; // grab the screenID that this userstory is associated with

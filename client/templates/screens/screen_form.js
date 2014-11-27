@@ -12,15 +12,3 @@ Template.screenForm.events({
         form.reset();
     }
 });
-
-Template.projectPage.events({
-    'click #show': function (e, template) {
-        e.preventDefault();
-
-        // check which screen was clicked
-        var screen_id = template.find("#show").dataset.screenid;
-
-        // set showOnCanvas for this screen to true
-        Meteor.call('showScreenOnCanvas', screen_id)
-    }
-});
