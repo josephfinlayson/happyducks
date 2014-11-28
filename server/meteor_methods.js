@@ -48,6 +48,41 @@ Meteor.methods({
 
     highlightStory: function(story_id, screen_id) {
 
+        /****************************************************
+        NEW UI ATTEMPT: 
+        Highlighted stories spawn options inside the canvas
+        to connect to a new screen, an existing screen or an
+        "end point" which marks the successful completion of
+        the user story flow. 
+        
+        WHEN CONNECTING TO A NEW SCREEN:
+        1. create a new sub screen 
+        2. place the new screen on the canvas (not in the gutter)
+        3. add the subScreen_id to the linksTo value of the user story
+
+        WHEN CONNECTING TO AN EXISTING SCREEN:
+
+
+        CLEAN UP:
+        Whenever a userstory is no longer highlighted all 
+        subScreens should be hidden (UX consideration?)
+
+        If the highlighted story creates a new screen:
+        - a new subscreen needs to be created
+        - the new subScreen_id needs to be added to the
+          userstory.linkTo array
+        - the new subScreen needs to be placed on the canvas
+        -  
+
+        If the highlighted story connects to an existing screen:
+        The screen needs to be placed on the canvas
+        The screen_id needs to be as a link_to from the userstory
+
+
+
+        *****************************************************/
+
+
         var story = Userstories.findOne({
             _id: story_id
         })
@@ -66,27 +101,7 @@ Meteor.methods({
     },
 
     createSubScreen: function(story_id, screen_id) {
-        /****************************************************
-        
-        The highlighted userstory will either:
-        1. create a new screen and connect to it
-        2. connect to an existing screen
-        3. set an end-point (not sure about this one)
-        
-        If the highlighted story creates a new screen:
-        - a new subscreen needs to be created
-        - the new subScreen_id needs to be added to the
-          userstory.linkTo array
-        - the new subScreen needs to be placed on the canvas
-        -  
 
-        If the highlighted story connects to an existing screen:
-        The screen needs to be placed on the canvas
-        The screen_id needs to be as a link_to from the userstory
-
-
-
-        *****************************************************/
     },
     createProject: function(title) {
         check(Meteor.userId(), String);
@@ -112,7 +127,8 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            showOnCanvas: false, // THIS SWITCH MIGHT BE DEPRICATED
+            showOnCanvas: false, 
+            showInGutter: true, // switch to false if this is a subScreen?
             collaborators: []
         };
         Screens.insert(screen);

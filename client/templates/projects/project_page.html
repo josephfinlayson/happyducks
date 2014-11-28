@@ -27,8 +27,9 @@
             {{#each listStories}} 
               {{#if highlighted}}
               <p>What should "{{title}}" connect to?</p>
-            <p><a href="#">A new screen</a></p>
-            <p><a href="#">An existing screen</a></p>
+            <p>{{> subScreenForm}}</p>
+            <p>{{> searchForm}}</p>
+            <p><a href="#">An end point</a></p>
               {{/if}} 
             {{/each}}
         </div>
