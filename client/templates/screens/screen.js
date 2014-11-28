@@ -37,18 +37,6 @@ Template.screen.events({
         }
 });
 
-Template.projectPage.events({
-    'click .toggleScreen': function (e, template) {
-        e.preventDefault();
-
-        // check which screen was clicked
-        var screen_id = this._id; 
-        
-        // set showOnCanvas for this screen to true
-        Meteor.call('showScreenOnCanvas', screen_id)
-        
-    }
-});
 
 
 Template.projectPage.events({
@@ -60,7 +48,7 @@ Template.projectPage.events({
         var screen_id = this.screen_id;
         
         Meteor.call('highlightStory', story_id, screen_id);
-        console.log(screen_id)
+        
         
     }
 });

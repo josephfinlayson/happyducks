@@ -1,35 +1,42 @@
 <template name="screen">
 
-    <div class="panel panel-default">
+    <!-- the screen design is currently a panel -->
+    <!-- the main div contains the Screen._id as its # -->
+    <div class="panel panel-primary" id="{{id}}">
         <div class="panel-heading">
+
             <h3 class="panel-title">{{title}}
-                <img src="/images/max.png" alt="" width="20px" height="20px" align="right" class="toggleScreen">    
-                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
+            <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
             </h3>
+            
 
         </div>
         <div class="panel-body">
             {{> userStoryForm}}
-            <p></p>
-            {{#each listUserStories}}
-            <p>
-                
-                {{#if highlighted}}
-                <a href="#" class="toggleStory" style="background-color: #B2FF99">
-                    {{title}}
-                </a>
+        </div>
 
-                {{else}}
-                <a href="#" class="toggleStory" style="">
-                    {{title}}
-                </a>
-                {{/if}}
+
+
+        <!-- the userstories are contained in a listgroup -->
+        <ul class="list-group">
+            {{#each listUserStories}}
+            <li class="list-group-item">
+                <!-- this span could set the badge count -->
+                <!-- <span class="badge">5</span> --> 
 
                 <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
+                
+                {{#if highlighted}}
+                <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> 
 
-            </p>
+                {{else}}
+                <a href="#" class="toggleStory" style="">{{title}}</a> 
+                {{/if}}
+
+            </li>
             {{/each}}
-        </div>
+        </ul>
+
     </div>
 
 </template>

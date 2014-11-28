@@ -46,44 +46,6 @@ Meteor.methods({
 
     },
 
-    // THE EXPLICIT SCREEN ON CANVAS TOGGLE.
-    // TOGGLING USING USER STORIES IS HANDLED BY
-    // HIGHLIGHTSTORY()
-    showScreenOnCanvas: function(screen_id) {
-
-        // grab the relevant MongoDB document
-        var screen = Screens.findOne({
-            _id: screen_id
-        })
-        
-        if (screen.showOnCanvas) {
-            // make sure showOnCanvas is turned off and all userstories
-            // have highlighted: false
-            Meteor.call('removeFromCanvas', screen_id)
-        } else {
-            // set the screen to show on canvas
-           Screens.update({
-                _id: screen_id
-            }, {
-                $set: {
-                    showOnCanvas: true
-                }
-            })
-        }
-    },
-    
-    // MAKE SURE NO OFF CANVAS SCREENS CONTAIN 
-    // HIGHLIGHTED STORIES
-    removeFromCanvas: function(screen_id) {
-        
-        Screens.update({_id: screen_id}, {$set: {showOnCanvas: false}})
-        Userstories.update({screen_id: screen_id}, {$set: {highlighted: false}}, {multi: true})
-        
-    },
-
-    // TOGGLE SHOW ON CANVAS USING USERSTORIES
-    // AND ALLOW SWITCHING BETWEEN USERSTORIES
-    // WHILST THE SCREEN IS ON CANVAS
     highlightStory: function(story_id, screen_id) {
 
         var story = Userstories.findOne({
@@ -93,16 +55,22 @@ Meteor.methods({
             _id: screen_id
         })
 
-        if (!screen.showOnCanvas) {
-            Screens.update({ _id: screen_id }, { $set: { showOnCanvas: true }} )
-            Userstories.update({_id: story_id}, {$set: {highlighted: true}} )
-        } else if (screen.showOnCanvas && story.highlighted) {
-            Meteor.call('removeFromCanvas', screen_id)
-        } else {
+        // if this userstory is highlighted
+        // then set highlighted to false
+        // else if another userstory is highlighted
+        // then set that highlight to false and highlight this one
+        // else
+        // highlight this one
+
+        if(story.highlighted) {
+            Userstories.update({_id: story_id}, {$set: {highlighted: false}} )
+        } else if (Userstories.find({screen_id: screen_id, highlighted: true})) {
             // set the other userstory.highlighted to false
             Userstories.update({screen_id: screen_id, highlighted: true}, {$set: {highlighted: false}})
             // now set the clicked userstory.highlighted to true
             Userstories.update({_id: story_id}, {$set: {highlighted: true}})
+        } else {
+            Userstories.update({_id: story_id}, {$set: {highlighted: true}} )
         }
         
     },

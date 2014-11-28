@@ -1,29 +1,36 @@
 <template name="projectPage">
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Project Title: {{title}}</h3> 
-                </div>
-                <div class="panel-body">
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        {{> screenForm}}
-                        <p> </p>
-                        {{#each listScreens}} {{> screen}} {{/each}}
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="canvas">
-                        {{#each listScreens}}
-                        {{#if showOnCanvas}} {{> screen}}
-                         {{/if}}
-                         {{/each}}
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel-heading">
+                <h3 class="panel-title">Project Title: {{title}}</h3>
             </div>
-
-
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p>Add a new screen: {{> screenForm}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- start screens list -->
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {{#each listScreens}} {{> screen}} {{/each}}
+        </div>
+        <!-- end screens list -->
+
+        <!-- start canvas -->
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="canvas">
+            
+            
+        </div>
+        <!-- end canvas -->
+    </div>
+
+
+
 
 </template>
