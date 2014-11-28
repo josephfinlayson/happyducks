@@ -38,19 +38,29 @@ Template.screen.events({
 });
 
 Template.projectPage.events({
-    'click .toggleCanvasView': function (e, template) {
+    'click .toggleScreen': function (e, template) {
         e.preventDefault();
 
         // check which screen was clicked
-        var screen_id = this.screen_id; 
-        // check which story was clicked
-        var story_id = this._id;
-
+        var screen_id = this._id; 
+        
         // set showOnCanvas for this screen to true
         Meteor.call('showScreenOnCanvas', screen_id)
+        
+    }
+});
 
-        // highlight the clicked story
-        Meteor.call('highlightStory', story_id, screen_id)
 
+Template.projectPage.events({
+    'click .toggleStory': function (e, template) {
+        e.preventDefault();
+
+        // check which story was clicked
+        var story_id = this._id;
+        var screen_id = this.screen_id;
+        
+        Meteor.call('highlightStory', story_id, screen_id);
+        console.log(screen_id)
+        
     }
 });

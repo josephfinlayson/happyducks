@@ -45,23 +45,24 @@ Meteor.methods({
         }
 
     },
+
+    // THE EXPLICIT SCREEN ON CANVAS TOGGLE.
+    // TOGGLING USING USER STORIES IS HANDLED BY
+    // HIGHLIGHTSTORY()
     showScreenOnCanvas: function(screen_id) {
 
+        // grab the relevant MongoDB document
         var screen = Screens.findOne({
             _id: screen_id
         })
-
-        // WHY DOES THIS CONDITIONAL AND ITS RESULT SHOW UP IN MY TERMINAL?
+        
         if (screen.showOnCanvas) {
-            Screens.update({
-                _id: screen_id
-            }, {
-                $set: {
-                    showOnCanvas: false
-                }
-            })
+            // make sure showOnCanvas is turned off and all userstories
+            // have highlighted: false
+            Meteor.call('removeFromCanvas', screen_id)
         } else {
-            Screens.update({
+            // set the screen to show on canvas
+           Screens.update({
                 _id: screen_id
             }, {
                 $set: {
@@ -69,9 +70,20 @@ Meteor.methods({
                 }
             })
         }
-        
-            // todo: error handling
     },
+    
+    // MAKE SURE NO OFF CANVAS SCREENS CONTAIN 
+    // HIGHLIGHTED STORIES
+    removeFromCanvas: function(screen_id) {
+        
+        Screens.update({_id: screen_id}, {$set: {showOnCanvas: false}})
+        Userstories.update({screen_id: screen_id}, {$set: {highlighted: false}}, {multi: true})
+        
+    },
+
+    // TOGGLE SHOW ON CANVAS USING USERSTORIES
+    // AND ALLOW SWITCHING BETWEEN USERSTORIES
+    // WHILST THE SCREEN IS ON CANVAS
     highlightStory: function(story_id, screen_id) {
 
         var story = Userstories.findOne({
@@ -81,38 +93,16 @@ Meteor.methods({
             _id: screen_id
         })
 
-        /**************************************************
-        * TODOS
-        * - Make it so that user stories can never be highlighted when the screen is not
-        *   on the canvas
-        * - Make it so that if you click another user story within a screen that is on the
-        *   canvas it does not toggle that screen back into the left pane
-        * - Figure out if there is a smarter way to do this whole thing :)
-        ***************************************************/
         if (!screen.showOnCanvas) {
-            Userstories.update({
-                _id: story_id
-            }, {
-                $set: {
-                    highlighted: false
-                }
-            })
-        } else if (story.highlighted) {
-            Userstories.update({
-                _id: story_id
-            }, {
-                $set: {
-                    highlighted: false
-                }
-            })
+            Screens.update({ _id: screen_id }, { $set: { showOnCanvas: true }} )
+            Userstories.update({_id: story_id}, {$set: {highlighted: true}} )
+        } else if (screen.showOnCanvas && story.highlighted) {
+            Meteor.call('removeFromCanvas', screen_id)
         } else {
-            Userstories.update({
-                _id: story_id
-            }, {
-                $set: {
-                    highlighted: true
-                }
-            })
+            // set the other userstory.highlighted to false
+            Userstories.update({screen_id: screen_id, highlighted: true}, {$set: {highlighted: false}})
+            // now set the clicked userstory.highlighted to true
+            Userstories.update({_id: story_id}, {$set: {highlighted: true}})
         }
         
     },
