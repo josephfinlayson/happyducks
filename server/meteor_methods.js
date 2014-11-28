@@ -51,16 +51,6 @@ Meteor.methods({
         var story = Userstories.findOne({
             _id: story_id
         })
-        var screen = Screens.findOne({
-            _id: screen_id
-        })
-
-        // if this userstory is highlighted
-        // then set highlighted to false
-        // else if another userstory is highlighted
-        // then set that highlight to false and highlight this one
-        // else
-        // highlight this one
 
         if(story.highlighted) {
             Userstories.update({_id: story_id}, {$set: {highlighted: false}} )
@@ -74,6 +64,30 @@ Meteor.methods({
         }
         
     },
+
+    createSubScreen: function(story_id, screen_id) {
+        /****************************************************
+        
+        The highlighted userstory will either:
+        1. create a new screen and connect to it
+        2. connect to an existing screen
+        3. set an end-point (not sure about this one)
+        
+        If the highlighted story creates a new screen:
+        - a new subscreen needs to be created
+        - the new subScreen_id needs to be added to the
+          userstory.linkTo array
+        - the new subScreen needs to be placed on the canvas
+        -  
+
+        If the highlighted story connects to an existing screen:
+        The screen needs to be placed on the canvas
+        The screen_id needs to be as a link_to from the userstory
+
+
+
+        *****************************************************/
+    },
     createProject: function(title) {
         check(Meteor.userId(), String);
         check(title, String);
@@ -82,9 +96,8 @@ Meteor.methods({
             title: title,
             createdAt: new Date(),
             createdBy: user.username,
-            userId: user._id, // move myself to collaboraters
-            // break the collaborators into a seperate collection??
-            collaborators: [] // where all the project collaborators live
+            userId: user._id, // move myself to collaboraters?
+            collaborators: [] 
         };
 
         Projects.insert(project);
@@ -99,7 +112,7 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            showOnCanvas: false,
+            showOnCanvas: false, // THIS SWITCH MIGHT BE DEPRICATED
             collaborators: []
         };
         Screens.insert(screen);
