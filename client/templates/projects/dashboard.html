@@ -1,0 +1,36 @@
+<template name="dashboard">
+    <div class="dashboard">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Your projects</h1>
+                    </div>
+                    <div class="panel-body">
+                        {{> projectForm}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+
+                {{#each projects}}
+                    <div class="well">
+
+                        {{#linkTo route="project.show"}}
+                        <h3>{{title}}</h3> {{/linkTo}}
+
+                        <a class="dashboardButtons deleteProject"><img src="/images/trash.png" alt="Nuke!" />
+                        </a>
+                        <a class="dashboardButtons renameProjects" data-collection="Projects"><img src="/images/edit.png" alt="Rename project" />
+                        </a>
+
+                    </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</template>
