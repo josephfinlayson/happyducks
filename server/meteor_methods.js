@@ -10,7 +10,7 @@ Meteor.methods({
             }) // remove the screens
         Userstories.remove({
                 project_id: object
-            }) // remove the screens    
+            }) // remove the screens
 
     },
     rename: function(collection, object, newTitle) {
@@ -49,14 +49,14 @@ Meteor.methods({
     highlightStory: function(story_id, screen_id) {
 
         /****************************************************
-        NEW UI ATTEMPT: 
+        NEW UI ATTEMPT:
         Highlighted stories spawn options inside the canvas
         to connect to a new screen, an existing screen or an
         "end point" which marks the successful completion of
-        the user story flow. 
-        
+        the user story flow.
+
         WHEN CONNECTING TO A NEW SCREEN:
-        1. create a new sub screen 
+        1. create a new sub screen
         2. place the new screen on the canvas (not in the gutter)
         3. add the subScreen_id to the linksTo value of the user story
 
@@ -64,7 +64,7 @@ Meteor.methods({
 
 
         CLEAN UP:
-        Whenever a userstory is no longer highlighted all 
+        Whenever a userstory is no longer highlighted all
         subScreens should be hidden (UX consideration?)
 
         If the highlighted story creates a new screen:
@@ -72,7 +72,7 @@ Meteor.methods({
         - the new subScreen_id needs to be added to the
           userstory.linkTo array
         - the new subScreen needs to be placed on the canvas
-        -  
+        -
 
         If the highlighted story connects to an existing screen:
         The screen needs to be placed on the canvas
@@ -97,7 +97,7 @@ Meteor.methods({
         } else {
             Userstories.update({_id: story_id}, {$set: {highlighted: true}} )
         }
-        
+
     },
 
     createSubScreen: function(story_id, screen_id) {
@@ -112,7 +112,7 @@ Meteor.methods({
             createdAt: new Date(),
             createdBy: user.username,
             userId: user._id, // move myself to collaboraters?
-            collaborators: [] 
+            collaborators: []
         };
 
         Projects.insert(project);
@@ -127,7 +127,7 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            showOnCanvas: false, 
+            showOnCanvas: false,
             showInGutter: true, // switch to false if this is a subScreen?
             collaborators: []
         };
