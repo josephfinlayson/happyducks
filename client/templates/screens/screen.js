@@ -22,6 +22,16 @@ Template.screen.events({
 });
 
 Template.screen.events({
+    'click .deleteScreen': function(e, template) {
+        e.preventDefault();
+
+        if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
+            Meteor.call("deleteScreen", this._id);
+        }
+    }
+});
+
+Template.screen.events({
     'click .renameStory': function(e, template) {
         e.preventDefault();
 
@@ -37,7 +47,16 @@ Template.screen.events({
         }
 });
 
+Template.screen.events({
+    'click .deleteStory': function(e, template) {
+        e.preventDefault();
 
+        if (confirm("You sure? This cannot be un-done")) {
+            Meteor.call("deleteStory", this._id);
+            
+        }
+    }
+});
 
 Template.projectPage.events({
     'click .toggleStory': function (e, template) {

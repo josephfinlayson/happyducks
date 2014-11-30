@@ -45,7 +45,21 @@ Meteor.methods({
         }
 
     },
+    deleteScreen: function(object) {
+        Screens.remove({
+                _id: object
+            }) // remove the screens
+        Userstories.remove({
+                screen_id: object
+            }) // remove the screens    
 
+    },
+    deleteStory: function(object) {
+        Userstories.remove({
+                _id: object
+            }) // remove the screens    
+
+    },
     highlightStory: function(story_id, screen_id) {
 
         /****************************************************
@@ -99,10 +113,6 @@ Meteor.methods({
         }
         
     },
-
-    createSubScreen: function(story_id, screen_id) {
-
-    },
     createProject: function(title) {
         check(Meteor.userId(), String);
         check(title, String);
@@ -127,8 +137,24 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
+            isMainScreen: true,
             showOnCanvas: false, 
-            showInGutter: true, // switch to false if this is a subScreen?
+            collaborators: []
+        };
+        Screens.insert(screen);
+    },
+    createSubScreen: function(title, project_id) {
+        check(Meteor.userId(), String);
+        check(title, String);
+        var user = Meteor.user();
+        var screen = {
+            title: title,
+            createdAt: new Date(),
+            createdBy: user.username,
+            project_id: project_id,
+            userId: user._id, // move myself to collaboraters?
+            isMainScreen: false,
+            showOnCanvas: true,
             collaborators: []
         };
         Screens.insert(screen);

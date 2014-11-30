@@ -26,7 +26,7 @@ Template.subScreenForm.events({
         var title = template.find("#subScreenTitle").value;
         var project_id = this.project_id; // grab the projectID from the projectPage data context
 
-        Meteor.call("createScreen", title, project_id);
+        Meteor.call("createSubScreen", title, project_id);
 
         console.log(this)
 
