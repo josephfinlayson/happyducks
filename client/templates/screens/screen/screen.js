@@ -13,7 +13,7 @@ Template.screen.events({
 
         // returning title on false or blank string
         var new_title = (prompt("new title please") || this.title),
-            collection = $(template.find(".renameScreen")).data('collection')
+            collection = template.find(".renameScreen").dataset.collection;
 
         Meteor.call("rename", collection, this, new_title)
     }
@@ -25,10 +25,8 @@ Template.screen.events({
 
         var new_title = prompt("new title please");
 
-        // var collection = $("#renameStory").data("collection");
-
         //works for me!
-        var collection = template.find(".renameStory").dataset.collection;
+        var collection = template.find(".renameStory");
 
         Meteor.call("rename", collection, this, new_title)
 
