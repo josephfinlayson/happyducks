@@ -6,31 +6,28 @@
         <div class="panel-heading">
 
             <h3 class="panel-title">{{title}}
-            <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
+                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
             </h3>
-            
-
         </div>
+
         <div class="panel-body">
             {{> userStoryForm}}
         </div>
-
-
-
         <!-- the userstories are contained in a listgroup -->
         <ul class="list-group">
             {{#each listUserStories}}
             <li class="list-group-item">
                 <!-- this span could set the badge count -->
-                <!-- <span class="badge">5</span> --> 
-
+                <!-- <span class="badge">5</span> -->
                 <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
-                
                 {{#if highlighted}}
-                <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> 
-
+                    <a href="#" class="toggleStory" style="background-color: #B2FF99">
+                        {{title}}
+                    </a>
                 {{else}}
-                <a href="#" class="toggleStory" style="">{{title}}</a> 
+                    <a href="#" class="toggleStory" style="">
+                        {{title}}
+                    </a>
                 {{/if}}
 
             </li>
