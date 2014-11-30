@@ -7,6 +7,9 @@ Template.screen.helpers({
     }
 });
 
+
+//the following two events are fundamentally the same apart from the class
+//they look for in the collection, how can we roll them into one event?
 Template.screen.events({
     'click .renameScreen': function(e, template) {
         e.preventDefault();
@@ -23,10 +26,9 @@ Template.screen.events({
     'click .renameStory': function(e, template) {
         e.preventDefault();
 
-        var new_title = prompt("new title please");
-
-        //works for me!
-        var collection = template.find(".renameStory");
+        //need to avoid this duplication
+        var collection = template.find(".renameStory"),
+            new_title = (prompt("new title please") || this.title)
 
         Meteor.call("rename", collection, this, new_title)
 
