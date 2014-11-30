@@ -1,10 +1,25 @@
-<template name="searchForm">
-	<form class="searchForm form-inline" role="form">
-        <div class="form-group">
-            <input type="text" name="" id="screenTitle" class="form-control" value="" required="required" placeholder="Find existing screen (not working)">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Find!</button>
-        </div>
-    </form>
+<template name="search">
+  {{> esAutosuggest index="screens" placeholder="Add tags"}}
+<!-- 
+  {{> esAutosuggest index="screens" renderSuggestion=found }}
+  {{#esEach index="screens" id="subScreenSearch"}} {{title}} {{/esEach}}
+ -->  	
+  	<!-- NASTY SOLLUTION -->
+  	<!-- 
+
+	{{#each resultScreens}}
+    {{title}}
+  {{/each}}
+
+  	 -->
+
+</template>
+
+
+<template name="customSuggestions">
+    <!-- Default way of ES rendering the suggestions -->
+
+	{{pre}}<span class="found">{{found}}</span>{{post}}
+    <!-- "doc" gives access to the suggested document -->
+    <!-- {{doc.title}} -->
 </template>

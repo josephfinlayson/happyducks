@@ -25,9 +25,10 @@ Template.screen.events({
     'click .deleteScreen': function(e, template) {
         e.preventDefault();
 
-        if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
+        // UNCOMMENT FOR CONFIRM POPUP
+        // if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
             Meteor.call("deleteScreen", this._id);
-        }
+        // }
     }
 });
 

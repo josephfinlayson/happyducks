@@ -2,43 +2,40 @@
 
     <!-- the screen design is currently a panel -->
     <!-- the main div contains the Screen._id as its # -->
-    <div class="panel panel-primary" id="{{id}}">
-        <div class="panel-heading">
+    
+        <div class="panel panel-primary" id="{{id}}">
+            <div class="panel-heading">
 
-            <h3 class="panel-title">{{title}}
+                <h3 class="panel-title">{{title}}
             <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
             <img src="/images/trash.png" class="deleteScreen" alt="Nuke!" width="20px" height="20px" align="right" />
             </h3>
-            
+
+
+            </div>
+            <div class="panel-body">
+                {{> userStoryForm}}
+            </div>
+
+
+
+            <!-- the userstories are contained in a listgroup -->
+            <ul class="list-group">
+                {{#each listUserStories}}
+                <li class="list-group-item">
+                    <!-- this span could set the badge count -->
+                    <!-- <span class="badge">5</span> -->
+
+                    <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
+                    <img src="/images/trash.png" alt="Nuke!" width="20px" height="20px" class="deleteStory" align="right" /> {{#if highlighted}}
+                    <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> {{else}}
+                    <a href="#" class="toggleStory" style="">{{title}}</a> {{/if}}
+
+                </li>
+                {{/each}}
+            </ul>
 
         </div>
-        <div class="panel-body">
-            {{> userStoryForm}}
-        </div>
-
-
-
-        <!-- the userstories are contained in a listgroup -->
-        <ul class="list-group">
-            {{#each listUserStories}}
-            <li class="list-group-item">
-                <!-- this span could set the badge count -->
-                <!-- <span class="badge">5</span> --> 
-
-                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
-                <img src="/images/trash.png" alt="Nuke!" width="20px" height="20px" class="deleteStory" align="right" />
-                
-                {{#if highlighted}}
-                <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> 
-
-                {{else}}
-                <a href="#" class="toggleStory" style="">{{title}}</a> 
-                {{/if}}
-
-            </li>
-            {{/each}}
-        </ul>
-
-    </div>
+    
 
 </template>

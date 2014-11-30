@@ -143,21 +143,25 @@ Meteor.methods({
         };
         Screens.insert(screen);
     },
-    createSubScreen: function(title, project_id) {
+    createSubScreen: function(title, project_id, parent_user_story) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
-        var screen = {
+        var subScreen = {
             title: title,
             createdAt: new Date(),
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            isMainScreen: false,
+            isSubScreen: true, // nasty solution for Blaze limitation
+                               // {{if !isMainScreen}} doesn't seem to be
+                               // supported
             showOnCanvas: true,
             collaborators: []
         };
-        Screens.insert(screen);
+        Screens.insert(subScreen);
+        console.log(parent_user_story)
+
     },
     createUserstory: function(title, project_id, screen_id) {
         check(Meteor.userId(), String);
@@ -171,6 +175,8 @@ Meteor.methods({
             userId: user._id, // move myself to collaboraters?
             project_id: project_id,
             screen_id: screen_id,
+            linksTo: "", // add screen_id of the screen that is linked to
+                         // remove screen_id if the screen is deleted 
             collaborators: []
         };
         Userstories.insert(userStory);
