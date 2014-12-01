@@ -44,6 +44,7 @@ Meteor.methods({
             userId: user._id, // move myself to collaboraters?
             project_id: project_id,
             screen_id: screen_id,
+            connectsTo: null,
             collaborators: []
         };
         Userstories.insert(userStory);
@@ -67,24 +68,7 @@ Meteor.methods({
         
         // create the subScreen and get its _id
         var subScreenID = Screens.insert(subScreen); 
-
     },
-    createConnection: function(story_id, screen_id, project_id){
-        // A SIMPLE OVERVIEW OF ALL CONNECTIONS WITHIN THE APP
-        check(Meteor.userId(), String);
-        check(title, String);
-        var user = Meteor.user();
-        var connection = {
-            createdAt: new Date(),
-            createdBy: user.username,
-            project_id: project_id,
-            userId: user._id,
-            story_id: story_id,
-            screen_id: screen_id
-        };
-
-        var connectionID = Connections.insert(connection);
-    }
     /***************************************
     * DELETE STUFF
     ****************************************/
