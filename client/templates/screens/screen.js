@@ -25,9 +25,11 @@ Template.screen.events({
     'click .deleteScreen': function(e, template) {
         e.preventDefault();
 
+        var collection = template.find(".deleteScreen").dataset.collection;
+
         // UNCOMMENT FOR CONFIRM POPUP
         // if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
-            Meteor.call("deleteScreen", this._id);
+            Meteor.call("delete", collection, this._id);
         // }
     }
 });
@@ -52,8 +54,10 @@ Template.screen.events({
     'click .deleteStory': function(e, template) {
         e.preventDefault();
 
+        var collection = template.find(".deleteStory").dataset.collection;
+
         if (confirm("You sure? This cannot be un-done")) {
-            Meteor.call("deleteStory", this._id);
+            Meteor.call("delete", collection, this._id);
             
         }
     }
@@ -67,7 +71,7 @@ Template.projectPage.events({
         var story_id = this._id;
         var screen_id = this.screen_id;
         
-        Meteor.call('highlightStory', story_id, screen_id);
+        Meteor.call('startFlow', story_id, screen_id);
         
         
     }

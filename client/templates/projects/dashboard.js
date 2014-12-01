@@ -2,8 +2,10 @@ Template.dashboard.events({
     'click .deleteProject': function(e, template) {
         e.preventDefault();
 
+        var collection = template.find(".deleteProject").dataset.collection;
+
         if (confirm("You sure? \n1. this cannot be un-done\n2. it's permanent")) {
-            Meteor.call("nukeProject", this._id);
+            Meteor.call("delete", collection, this._id);
             
         }
     }

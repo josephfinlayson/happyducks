@@ -8,7 +8,7 @@
 
                 <h3 class="panel-title">{{title}}
             <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
-            <img src="/images/trash.png" class="deleteScreen" alt="Nuke!" width="20px" height="20px" align="right" />
+            <img src="/images/trash.png" class="deleteScreen" alt="Nuke!" width="20px" height="20px" align="right" data-collection="Screens" />
             </h3>
 
 
@@ -27,7 +27,7 @@
                     <!-- <span class="badge">5</span> -->
 
                     <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
-                    <img src="/images/trash.png" alt="Nuke!" width="20px" height="20px" class="deleteStory" align="right" /> {{#if highlighted}}
+                    <img src="/images/trash.png" alt="Nuke!" width="20px" height="20px" class="deleteStory" align="right" data-collection="Userstories" /> {{#if highlighted}}
                     <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> {{else}}
                     <a href="#" class="toggleStory" style="">{{title}}</a> {{/if}}
 
