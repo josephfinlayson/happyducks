@@ -5,6 +5,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="panel-heading">
                 <h3 class="panel-title">Project Title: {{title}}</h3>
+
             </div>
         </div>
     </div>
@@ -27,17 +28,22 @@
             <div class="row">
 
                 {{#each listScreens}}
+                  <!-- subScreens only show on the canvas -->
                   {{#if isSubScreen}}
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                      {{> screen}} 
                 </div>
                   {{/if}}
+                  <!-- end subScreens -->
                 {{/each}}
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     {{#each listStories}} 
                     
                       {{#if highlighted}} 
+                        <!-- {{#if linksTo}} NEED TO DO THIS WITH A SEPERATE COLLECTION -->
+                          <!-- {{else}} -->
                         {{> nextStep}} 
+                        <!-- {{/if}} -->
                       {{/if}} 
 
                     {{/each}}

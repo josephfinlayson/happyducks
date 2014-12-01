@@ -71,7 +71,7 @@ Template.projectPage.events({
         var story_id = this._id;
         var screen_id = this.screen_id;
         
-        Meteor.call('startFlow', story_id, screen_id);
+        Meteor.call('startFunnel', story_id, screen_id);
         
         
     }

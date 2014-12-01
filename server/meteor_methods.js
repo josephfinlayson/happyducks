@@ -44,13 +44,11 @@ Meteor.methods({
             userId: user._id, // move myself to collaboraters?
             project_id: project_id,
             screen_id: screen_id,
-            linksTo: "", // add screen_id of the screen that is linked to
-            // remove screen_id if the screen is deleted 
             collaborators: []
         };
         Userstories.insert(userStory);
     },
-    createSubScreen: function(title, project_id, parent_user_story) {
+    createSubScreen: function(title, project_id) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -66,11 +64,27 @@ Meteor.methods({
             showOnCanvas: true,
             collaborators: []
         };
-        Screens.insert(subScreen);
-        console.log(parent_user_story)
+        
+        // create the subScreen and get its _id
+        var subScreenID = Screens.insert(subScreen); 
 
     },
+    createConnection: function(story_id, screen_id, project_id){
+        // A SIMPLE OVERVIEW OF ALL CONNECTIONS WITHIN THE APP
+        check(Meteor.userId(), String);
+        check(title, String);
+        var user = Meteor.user();
+        var connection = {
+            createdAt: new Date(),
+            createdBy: user.username,
+            project_id: project_id,
+            userId: user._id,
+            story_id: story_id,
+            screen_id: screen_id
+        };
 
+        var connectionID = Connections.insert(connection);
+    }
     /***************************************
     * DELETE STUFF
     ****************************************/
@@ -148,13 +162,31 @@ Meteor.methods({
     },
 
     /***************************************
-    * CREATE STUFF
+    * FUNNEL STUFF
     ****************************************/
-    startFlow: function(story_id, screen_id) {
+    startFunnel: function(story_id, screen_id) {
 
         var story = Userstories.findOne({
             _id: story_id
         })
+        var screen = Screens.findOne({
+            _id: screen_id
+        })
+
+        // if (screen.mainScreen)
+        //   if (the story is highlighted && (!linksTo))
+        //      this is the first step in a funnel
+        //      the next step form should show
+        //   else 
+        //      The first step of the funnel has been defined
+        //      the data context should be further in the funnel
+        //
+        // else  // this is a subScreen
+        //   if (there are no stories with this screen_id)
+        //      hide the form // this could be bad UX!!!
+        //   else
+        //      show the next step form for the highlighted userstory
+
 
         if (story.highlighted) {
             Userstories.update({
@@ -164,10 +196,8 @@ Meteor.methods({
                     highlighted: false
                 }
             })
-        } else if (Userstories.find({
-                screen_id: screen_id,
-                highlighted: true
-            })) {
+        } else if // IF ANY OTHER STORY IS HIGHLIGHTED
+        (Userstories.find({ screen_id: screen_id, highlighted: true })) {
             // set the other userstory.highlighted to false
             Userstories.update({
                     screen_id: screen_id,
