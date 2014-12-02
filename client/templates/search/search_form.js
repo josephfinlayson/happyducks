@@ -36,7 +36,6 @@ Screens.initEasySearch(['title']);
 // });
 
 
-/*
 
 Template.search.created = function() {
     this.autorun(function() {
@@ -67,5 +66,3 @@ Template.search.helpers({
         return Template.customSuggestions;
     }
 });
-
-*/

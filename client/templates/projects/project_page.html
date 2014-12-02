@@ -16,44 +16,73 @@
         </div>
     </div>
 
+
+
     <div class="row">
         <!-- start screens list -->
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            {{#each listScreens}} {{#if isMainScreen}} {{> screen}} {{/if}} {{/each}}
+            <!-- data context outside of #each is current project -->
+
+            {{#each listScreens}}
+            <!-- now the data context is per screen with this project_id -->
+            {{>screen }} 
+            {{/each}}
+
         </div>
         <!-- end screens list -->
-
-        <!-- start canvas -->
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 canvas">
-            <div class="row">
-
-                {{#each listScreens}}
-                  <!-- subScreens only show on the canvas -->
-                  {{#if isSubScreen}}
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                     {{> screen}} 
-                </div>
-                  {{/if}}
-                  <!-- end subScreens -->
-                {{/each}}
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    {{#each listStories}} 
-                    
-                      {{#if highlighted}} 
-                        <!-- {{#if linksTo}} NEED TO DO THIS WITH A SEPERATE COLLECTION -->
-                          <!-- {{else}} -->
-                        {{> nextStep}} 
-                        <!-- {{/if}} -->
-                      {{/if}} 
-
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-        <!-- end canvas -->
-
-
     </div>
+
+
+
+    <!-- start canvas -->
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 canvas">
+        <div class="row">
+
+{{#each listScreens}}
+<!-- now the data context is per screen with this project_id -->
+    {{#each listUserStories}}
+    <!-- now the data context is per userstory with this screen_id -->
+    
+<!-- if this screen contains a highlighted story -->
+        {{#if highlighted}} {{title}} <!-- WORKING! -->
+<!-- and if the highlighted story has a connectsTo value -->
+            {{#if connectsTo}} {{connectsTo}} <!-- WORKING! -->
+<!-- display the screen with the id that = connectsTo -->
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    this story connectsTo: {{connectsTo}}
+                    {{>screen ..}}
+                
+                </div>
+            {{else}}
+<!-- else display the next step form -->
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{>nextStep}} ehco for form
+                </div>
+            {{/if}}
+<!-- if none is true do nothing? -->
+        {{/if}} 
+    {{/each}}
+{{/each}}
+
+
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{#each listUserStories}} 
+                    <!-- {{#if highlighted}} -->
+                        {{> nextStep}}
+                    <!-- {{/if}} -->
+                {{/each}}
+            </div>   
+        
+
+        </div>
+    </div>
+    <!-- end canvas -->
+
+
+
+
+    
 
 
 

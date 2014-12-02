@@ -49,7 +49,7 @@ Meteor.methods({
         };
         Userstories.insert(userStory);
     },
-    createSubScreen: function(title, project_id) {
+    createSubScreen: function(title, project_id, linkFrom) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -68,6 +68,9 @@ Meteor.methods({
         
         // create the subScreen and get its _id
         var subScreenID = Screens.insert(subScreen); 
+        Userstories.update({_id: linkFrom}, {$set: {connectsTo:subScreenID}})
+
+
     },
     /***************************************
     * DELETE STUFF
