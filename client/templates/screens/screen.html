@@ -3,10 +3,10 @@
     <!-- the screen design is currently a panel -->
     <!-- the main div contains the Screen._id as its # -->
     <!-- the data context is the current screen object in whatever #each is calling this template -->
-        <div class="panel panel-primary" id="{{id}}">
+        <div class="panel panel-primary" id="{{_id}}">
             <div class="panel-heading">
 
-                <h3 class="panel-title">{{title}}
+                <h3 class="panel-title">{{screenTitle}}
             <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameScreen" data-collection="Screens">
             <img src="/images/trash.png" class="deleteScreen" alt="Nuke!" width="20px" height="20px" align="right" data-collection="Screens" />
             </h3>

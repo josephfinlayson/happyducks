@@ -1,9 +1,0 @@
-<template name="screenFunnel">
-	{{#if highlightedStory}}
-		{{#if highlightedStory.connectsTo}}
-			{{>screen _id=highlightedStory.connectsTo}}
-		{{else}}
-			{{>nextStep}}
-		{{/if}}
-	{{/if}}
-</template>

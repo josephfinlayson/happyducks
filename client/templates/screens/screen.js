@@ -3,17 +3,10 @@ Template.screen.helpers({
 		var id = this._id // grab the ID of the current screen
 		return Userstories.find({screen_id: id}) // show the userstories associated to this screen
 	},
-    "currentScreen": function () {
-        return Screens.find({_id:this._id})
-    },
-    "currentStories": function () {
-        var currentScreen = this._id
-        return Userstories.find({screen_id:currentScreen})
-    },
-    "highlightedStory": function () {
-        var currentScreen = this._id
-        return Userstories.find({screen_id:currentScreen, highlighted:true})
-    }
+    screenTitle: function () {
+        var id = this._id
+        return Screens.findOne({_id: id}).title
+    }    
 });
 
 Template.screen.events({

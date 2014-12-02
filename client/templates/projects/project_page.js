@@ -1,7 +1,7 @@
 Template.projectPage.helpers({
 	listScreens: function () {
 		var id = this._id
-		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
+		return Screens.find({project_id: id, isMainScreen: true}) // this isn't secure!!! Use a subscription instead?
 	},
 	listUserStories: function () {
 		var id = this._id // grab the ID of the current screen
@@ -14,6 +14,11 @@ Template.projectPage.helpers({
 	subScreen: function () {
 		console.log("the parent story connectsTo: ", this.connectsTo)
 		return this.connectsTo
+	},
+	listSubScreens: function () {
+		var id = this._id
+		console.log(id)
+		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
 	}
 });
 

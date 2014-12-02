@@ -6,6 +6,7 @@ Template.screenForm.events({
         var project_id = this._id; // grab the projectID from the projectPage data context
 
         Meteor.call("createScreen", title, project_id);
+        console.log("hello from main screen form: ", this._id)
 
 
         // reset the form
@@ -24,10 +25,9 @@ Template.subScreenForm.events({
         e.preventDefault();
 
         var title = template.find("#subScreenTitle").value;
-        var project_id = this.project_id; // grab the projectID from the projectPage data context
-
-        Meteor.call("createSubScreen", title, project_id, this._id);
-        console.log(this)
+        
+        Meteor.call("createSubScreen", title, this.project_id, this._id);
+        console.log("hello from screen_form.js: ", this)
 
         // reset the form
         var form = template.find(".subScreenForm");
