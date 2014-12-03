@@ -95,7 +95,7 @@ Meteor.methods({
                     }) // remove the screens
                 Userstories.remove({
                         project_id: object
-                    }) // remove the stories  
+                    }) // remove the stories
                 break;
             case "Screens":
                 Screens.remove({
@@ -103,13 +103,13 @@ Meteor.methods({
                     }) // remove the screens
                 Userstories.remove({
                         screen_id: object
-                    }) // remove the stories  
+                    }) // remove the stories
                 break;
 
             case "Userstories":
                 Userstories.remove({
                         _id: object
-                    }) // remove the stories    
+                    }) // remove the stories
                 break;
 
             default:
@@ -161,22 +161,31 @@ Meteor.methods({
 
         console.log(currentObj);
         // anonymous function that sets highlighted to false and hides?
+
         while (currentObj.highlighted) {
             Meteor.call("highlightToggle", currentObj._id, currentObj.screen_id); //unhighlight
+
+            //why are we logging this, currentObj contains the data we need
             console.log("currentWhile: ", this)
+
             if (!currentObj.connectsTo) {
-                // unhighlight this  -> automatically hide nextSteps
+
+                //this again
                 console.log("inside if: ", this)
                 break;
             } else {
                 // unhighlight this story
                 console.log("inside else: ", this)
+
+                // is current object being defined? What happens if we replace
+                // Userstories with Screens? Is it defined then (yes)
                 currentObj = Userstories.find({
                     _id: this.connectsTo
                 }, {
                     highlighted: 1,
                     connectsTo: 1
                 })
+
             }
         }
     },
@@ -236,11 +245,11 @@ Meteor.methods({
 /****************************************************
 * NOTES
 *****************************************************
-NEW UI ATTEMPT: 
+NEW UI ATTEMPT:
 Highlighted stories spawn options inside the canvas
 to connect to a new screen, an existing screen or an
 "end point" which marks the successful completion of
-the user story flow. 
+the user story flow.
 
 
 mainScreen -> mainStory -> startFlow() -> form -> subScreen -> story ->
@@ -257,7 +266,7 @@ stories linked to stories already in the flow
 
 WHAT WOULD THE DOCUMENT LOOK LIKE?
 _id: _id,
-parentStory: story_id, // 
+parentStory: story_id, //
 subScreen: subScreen_id, //
 
 WHAT IF I JUST TREAT LINKS AS ONE STEP ONLY?
@@ -279,7 +288,7 @@ if (there are no stories with this screen_id
 
 
 WHEN CONNECTING TO A NEW SCREEN:
-1. create a new sub screen 
+1. create a new sub screen
 2. place the new screen on the canvas (not in the gutter)
 3. add the subScreen_id to the linksTo value of the user story
 
@@ -287,7 +296,7 @@ WHEN CONNECTING TO AN EXISTING SCREEN:
 
 
 CLEAN UP:
-Whenever a userstory is no longer highlighted all 
+Whenever a userstory is no longer highlighted all
 subScreens should be hidden (UX consideration?)
 
 If the highlighted story creates a new screen:
@@ -295,7 +304,7 @@ If the highlighted story creates a new screen:
 - the new subScreen_id needs to be added to the
   userstory.linkTo array
 - the new subScreen needs to be placed on the canvas
--  
+-
 
 If the highlighted story connects to an existing screen:
 The screen needs to be placed on the canvas
