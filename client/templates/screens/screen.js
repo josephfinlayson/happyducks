@@ -74,9 +74,20 @@ Template.projectPage.events({
         // check which story was clicked
         var story_id = this._id;
         var screen_id = this.screen_id;
-        
-        Meteor.call('startFunnel', story_id, screen_id);
-        
-        
+
+        if (!this.highlighted) {
+            Meteor.call('highlightToggle', story_id, screen_id)
+        } else {
+        // Meteor.call('highlightToggle', story_id, screen_id);
+        console.log("highlight is: ", this.highlighted)
+        //obj = _.pluck([])
+        Meteor.call('collapseScreens', {
+          screen_id: this.screen_id,
+          highlighted: this.highlighted, 
+          connectsTo:this.connectsTo,
+          _id: this._id
+        })
+        }
+        //Meteor.call('collapseScreens', this)
     }
 });

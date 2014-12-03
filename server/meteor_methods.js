@@ -1,7 +1,7 @@
 Meteor.methods({
     /***************************************
-    * CREATE STUFF
-    ****************************************/
+     * CREATE STUFF
+     ****************************************/
     createProject: function(title) {
         check(Meteor.userId(), String);
         check(title, String);
@@ -65,16 +65,22 @@ Meteor.methods({
             showOnCanvas: true,
             collaborators: []
         };
-        
+
         // create the subScreen and get its _id
-        var subScreenID = Screens.insert(subScreen); 
-        Userstories.update({_id: linkFrom}, {$set: {connectsTo:subScreenID}})
+        var subScreenID = Screens.insert(subScreen);
+        Userstories.update({
+            _id: linkFrom
+        }, {
+            $set: {
+                connectsTo: subScreenID
+            }
+        })
 
 
     },
     /***************************************
-    * DELETE STUFF
-    ****************************************/
+     * DELETE STUFF
+     ****************************************/
     delete: function(collection, object) {
         // TODOS!!!
         // check that the user is logged in
@@ -113,8 +119,8 @@ Meteor.methods({
     },
 
     /***************************************
-    * RENAME STUFF
-    ****************************************/
+     * RENAME STUFF
+     ****************************************/
     rename: function(collection, object, newTitle) {
 
         // identify the current document by ID
@@ -149,9 +155,32 @@ Meteor.methods({
     },
 
     /***************************************
-    * FUNNEL STUFF
-    ****************************************/
-    startFunnel: function(story_id, screen_id) {
+     * FUNNEL STUFF
+     ****************************************/
+    collapseScreens: function(currentObj) {
+
+        console.log(currentObj);
+        // anonymous function that sets highlighted to false and hides?
+        while (currentObj.highlighted) {
+            Meteor.call("highlightToggle", currentObj._id, currentObj.screen_id); //unhighlight
+            console.log("currentWhile: ", this)
+            if (!currentObj.connectsTo) {
+                // unhighlight this  -> automatically hide nextSteps
+                console.log("inside if: " this)
+                break;
+            } else {
+                // unhighlight this story
+                console.log("inside else: " this)
+                currentObj = Userstories.find({
+                    _id: this.connectsTo
+                }, {
+                    highlighted: 1,
+                    connectsTo: 1
+                })
+            }
+        }
+    },
+    highlightToggle: function(story_id, screen_id) {
 
         var story = Userstories.findOne({
             _id: story_id
@@ -159,21 +188,6 @@ Meteor.methods({
         var screen = Screens.findOne({
             _id: screen_id
         })
-
-        // if (screen.mainScreen)
-        //   if (the story is highlighted && (!linksTo))
-        //      this is the first step in a funnel
-        //      the next step form should show
-        //   else 
-        //      The first step of the funnel has been defined
-        //      the data context should be further in the funnel
-        //
-        // else  // this is a subScreen
-        //   if (there are no stories with this screen_id)
-        //      hide the form // this could be bad UX!!!
-        //   else
-        //      show the next step form for the highlighted userstory
-
 
         if (story.highlighted) {
             Userstories.update({
@@ -184,7 +198,10 @@ Meteor.methods({
                 }
             })
         } else if // IF ANY OTHER STORY IS HIGHLIGHTED
-        (Userstories.find({ screen_id: screen_id, highlighted: true })) {
+        (Userstories.find({
+                screen_id: screen_id,
+                highlighted: true
+            })) {
             // set the other userstory.highlighted to false
             Userstories.update({
                     screen_id: screen_id,
