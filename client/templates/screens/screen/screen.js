@@ -1,12 +1,12 @@
 Template.screen.helpers({
-	listUserStories: function () {
-		var id = this._id // grab the ID of the current screen
-		return Userstories.find({screen_id: id}) // show the userstories associated to this screen
-	},
+    listUserStories: function () {
+        var id = this._id // grab the ID of the current screen
+        return Userstories.find({screen_id: id}) // show the userstories associated to this screen
+    },
     screenTitle: function () {
         var id = this._id
         return Screens.findOne({_id: id}).title
-    }    
+    }
 });
 
 Template.screen.events({
@@ -62,7 +62,7 @@ Template.screen.events({
 
         if (confirm("You sure? This cannot be un-done")) {
             Meteor.call("delete", collection, this._id);
-            
+
         }
     }
 });
@@ -82,7 +82,7 @@ Template.projectPage.events({
         //obj = _.pluck([])
         Meteor.call('collapseScreens', {
           screen_id: this.screen_id,
-          highlighted: this.highlighted, 
+          highlighted: this.highlighted,
           connectsTo:this.connectsTo,
           _id: this._id
         })

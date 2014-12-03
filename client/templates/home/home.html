@@ -1,19 +1,19 @@
-<template name="home">
+    <template name="home">
 
     <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+        <div class="col-md-10">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Welcome to HappyDucks!
                 </div>
-                
+
                 {{#if currentUser}}
                 <div class="panel-body">
                     When you're ready, <a href="{{pathFor 'dashboard'}}">start creating projects</a>
                 </div>
-                
+
                 {{else}}
-                
+
                 <div class="panel-body">Hi, welcome to Happy Ducks. Please sign up or sign in^</div>
                 {{/if}}
 
