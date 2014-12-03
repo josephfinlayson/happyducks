@@ -79,7 +79,6 @@ Template.projectPage.events({
             Meteor.call('highlightToggle', story_id, screen_id)
         } else {
         // Meteor.call('highlightToggle', story_id, screen_id);
-        console.log("highlight is: ", this.highlighted)
         //obj = _.pluck([])
         Meteor.call('collapseScreens', {
           screen_id: this.screen_id,

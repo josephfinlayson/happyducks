@@ -166,11 +166,11 @@ Meteor.methods({
             console.log("currentWhile: ", this)
             if (!currentObj.connectsTo) {
                 // unhighlight this  -> automatically hide nextSteps
-                console.log("inside if: " this)
+                console.log("inside if: ", this)
                 break;
             } else {
                 // unhighlight this story
-                console.log("inside else: " this)
+                console.log("inside else: ", this)
                 currentObj = Userstories.find({
                     _id: this.connectsTo
                 }, {
