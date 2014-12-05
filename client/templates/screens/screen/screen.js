@@ -1,11 +1,19 @@
 Template.screen.helpers({
-    listUserStories: function () {
+    listUserStories: function() {
         var id = this._id // grab the ID of the current screen
-        return Userstories.find({screen_id: id}) // show the userstories associated to this screen
+        return Userstories.find({
+                screen_id: id
+            }) // show the userstories associated to this screen
     },
-    screenTitle: function () {
+    screenTitle: function() {
         var id = this._id
-        return Screens.findOne({_id: id}).title
+        return Screens.findOne({
+            _id: id
+        }).title
+    },
+    stepCounter: function(screen_id) {
+        console.log("hello from stepCounter in screen.js")
+        console.log(Meteor.call("stepCounter", screen_id))
     }
 });
 
@@ -22,7 +30,7 @@ Template.screen.events({
 
         Meteor.call("rename", collection, this, new_title)
 
-        }
+    }
 });
 
 Template.screen.events({
@@ -33,7 +41,7 @@ Template.screen.events({
 
         // UNCOMMENT FOR CONFIRM POPUP
         // if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
-            Meteor.call("delete", collection, this._id);
+        Meteor.call("delete", collection, this._id);
         // }
     }
 });
@@ -51,7 +59,7 @@ Template.screen.events({
 
         Meteor.call("rename", collection, this, new_title)
 
-        }
+    }
 });
 
 Template.screen.events({
@@ -64,29 +72,5 @@ Template.screen.events({
             Meteor.call("delete", collection, this._id);
 
         }
-    }
-});
-
-Template.projectPage.events({
-    'click .toggleStory': function (e, template) {
-        e.preventDefault();
-
-        // check which story was clicked
-        var story_id = this._id;
-        var screen_id = this.screen_id;
-
-        if (!this.highlighted) {
-            Meteor.call('highlightToggle', story_id, screen_id)
-        } else {
-        // Meteor.call('highlightToggle', story_id, screen_id);
-        //obj = _.pluck([])
-        Meteor.call('collapseScreens', {
-          screen_id: this.screen_id,
-          highlighted: this.highlighted,
-          connectsTo:this.connectsTo,
-          _id: this._id
-        })
-        }
-        //Meteor.call('collapseScreens', this)
     }
 });

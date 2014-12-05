@@ -157,29 +157,6 @@ Meteor.methods({
     /***************************************
      * FUNNEL STUFF
      ****************************************/
-    collapseScreens: function(currentObj) {
-
-        console.log(currentObj);
-        // anonymous function that sets highlighted to false and hides?
-        while (currentObj.highlighted) {
-            Meteor.call("highlightToggle", currentObj._id, currentObj.screen_id); //unhighlight
-            console.log("currentWhile: ", this)
-            if (!currentObj.connectsTo) {
-                // unhighlight this  -> automatically hide nextSteps
-                console.log("inside if: ", this)
-                break;
-            } else {
-                // unhighlight this story
-                console.log("inside else: ", this)
-                currentObj = Userstories.find({
-                    _id: this.connectsTo
-                }, {
-                    highlighted: 1,
-                    connectsTo: 1
-                })
-            }
-        }
-    },
     highlightToggle: function(story_id, screen_id) {
 
         var story = Userstories.findOne({
@@ -190,28 +167,18 @@ Meteor.methods({
         })
 
         if (story.highlighted) {
-            Userstories.update({
-                _id: story_id
-            }, {
-                $set: {
-                    highlighted: false
-                }
-            })
-        } else if // IF ANY OTHER STORY IS HIGHLIGHTED
+            Meteor.call("screenToggle", screen_id)
+        } else if
+        // IF ANY OTHER STORY IS HIGHLIGHTED
         (Userstories.find({
                 screen_id: screen_id,
                 highlighted: true
             })) {
-            // set the other userstory.highlighted to false
-            Userstories.update({
-                    screen_id: screen_id,
-                    highlighted: true
-                }, {
-                    $set: {
-                        highlighted: false
-                    }
-                })
-                // now set the clicked userstory.highlighted to true
+
+            // let screenToggle set that story to false
+            Meteor.call("screenToggle", screen_id)
+
+            // now set the clicked story to true
             Userstories.update({
                 _id: story_id
             }, {
@@ -219,7 +186,9 @@ Meteor.methods({
                     highlighted: true
                 }
             })
-        } else {
+        } else
+        // this story wasn't highlighted so go ahead and highlight it
+        {
             Userstories.update({
                 _id: story_id
             }, {
@@ -229,78 +198,71 @@ Meteor.methods({
             })
         }
 
+    },
+    screenToggle: function(screen_id) {
+
+        // iterate over all screens with the passed screen_id
+        Userstories.find({
+            screen_id: screen_id
+        }).forEach(function(currentObj) {
+
+
+            if (currentObj.highlighted && currentObj.connectsTo) {
+
+                // This story is highlighted & connected
+                // Set its highlighted value to false
+                Userstories.update({
+                    _id: currentObj._id
+                }, {
+                    $set: {
+                        highlighted: false
+                    }
+                })
+
+                // grab the screen_id inside the connectsTo value
+                var newScreenToLookThrough = currentObj.connectsTo;
+
+                // call yourself with the new screen ID
+                Meteor.call('screenToggle', newScreenToLookThrough);
+
+            } else if (currentObj.highlighted) {
+
+                // this story is only highlighted so just set it to false
+
+                Userstories.update({
+                    _id: currentObj._id
+                }, {
+                    $set: {
+                        highlighted: false
+                    }
+                })
+
+            } else {
+                return;
+            }
+        })
+
+    },
+    stepCounter: function(screen_id) {
+        var counter = 0;
+        Userstories.find({
+            screen_id: screen_id
+        }).forEach(function(currentObj) {
+
+
+            if (currentObj.connectsTo) {
+
+                counter += 1;
+
+                // grab the screen_id inside the connectsTo value
+                var newScreenToLookThrough = currentObj.connectsTo;
+
+                // call yourself with the new screen ID
+                Meteor.call("stepCounter", newScreenToLookThrough);
+
+            } else {
+                return counter;
+            }
+        })
     }
 });
-
-
-/****************************************************
-* NOTES
-*****************************************************
-NEW UI ATTEMPT:
-Highlighted stories spawn options inside the canvas
-to connect to a new screen, an existing screen or an
-"end point" which marks the successful completion of
-the user story flow.
-
-
-mainScreen -> mainStory -> startFlow() -> form -> subScreen -> story ->
-form -> subScreen -> story -> form -> subScreen -> story - form -> mainScreen
-
-
-WHAT ARE THE END POINT CRITERIA?
-form open
-mainScreen link
-empty subScreen
-non-linked stories in subScreen
-stories linked to stories already in the flow
-
-
-WHAT WOULD THE DOCUMENT LOOK LIKE?
-_id: _id,
-parentStory: story_id, //
-subScreen: subScreen_id, //
-
-WHAT IF I JUST TREAT LINKS AS ONE STEP ONLY?
-story_id -> screen_id
-story_id -> form
-
-A story links to a screen that contains stories that link to a screen
-
-if (story.screen_id.isMainScreen && linksTo) {
-    set funnelStart to true
-}
-
-if (there are no stories with this screen_id
-    || all stories with this screen_id have linkTo_ids that are null
-    || any story with this screen_id has a linkTo_id that is a main screen) {
-    set funnelEnd to true
-}
-
-
-
-WHEN CONNECTING TO A NEW SCREEN:
-1. create a new sub screen
-2. place the new screen on the canvas (not in the gutter)
-3. add the subScreen_id to the linksTo value of the user story
-
-WHEN CONNECTING TO AN EXISTING SCREEN:
-
-
-CLEAN UP:
-Whenever a userstory is no longer highlighted all
-subScreens should be hidden (UX consideration?)
-
-If the highlighted story creates a new screen:
-- a new subscreen needs to be created
-- the new subScreen_id needs to be added to the
-  userstory.linkTo array
-- the new subScreen needs to be placed on the canvas
--
-
-If the highlighted story connects to an existing screen:
-The screen needs to be placed on the canvas
-The screen_id needs to be as a link_to from the userstory
-
-
-
-*****************************************************/
