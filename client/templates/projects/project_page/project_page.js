@@ -9,7 +9,6 @@ Template.projectPage.helpers({
 	},
 	listSubScreens: function () {
 		var id = this._id
-		console.log(id)
 		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
 	}
 });

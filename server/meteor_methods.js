@@ -50,7 +50,7 @@ Meteor.methods({
         };
         Userstories.insert(userStory);
     },
-    createSubScreen: function(title, project_id, linkFrom) {
+    createSubScreen: function(title, project_id, linkFrom, currentScreenId) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -73,13 +73,10 @@ Meteor.methods({
             _id: linkFrom
         }, {
             $set: {
-                connectsTo: subScreenID
-            },
-            $inc: {
-                funnelSteps: 1
+                connectsTo: subScreenID,
             }
         })
-
+        Meteor.call('stepCounter', project_id);
 
     },
     /***************************************
@@ -247,10 +244,10 @@ Meteor.methods({
         })
 
     },
-    stepCounter: function stepCounter(screen_id) {
+    stepCounter: function stepCounter(project_id) {
 
         Userstories.find({
-            screen_id: screen_id
+            project_id: project_id
         }).forEach(function(currentObj) {
 
             if (currentObj.connectsTo) {
