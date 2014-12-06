@@ -7,14 +7,6 @@ Template.projectPage.helpers({
 		var id = this._id // grab the ID of the current screen
 		return Userstories.find({screen_id: id}) // show the userstories associated to this screen
 	},
-	parentHelper: function (parentContext){
-		console.log("the parentHelper data context: ", this);
-		console.log("the parent data context: ", parentContext.connectsTo);
-	},
-	subScreen: function () {
-		console.log("the parent story connectsTo: ", this.connectsTo)
-		return this.connectsTo
-	},
 	listSubScreens: function () {
 		var id = this._id
 		console.log(id)
