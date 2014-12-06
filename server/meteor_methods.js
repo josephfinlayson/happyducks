@@ -203,7 +203,7 @@ Meteor.methods({
         }
 
     },
-    screenToggle: function(screen_id) {
+    screenToggle: function screenToggle(screen_id) {
 
         // iterate over all screens with the passed screen_id
         Userstories.find({
@@ -227,7 +227,7 @@ Meteor.methods({
                 var newScreenToLookThrough = currentObj.connectsTo;
 
                 // call yourself with the new screen ID
-                Meteor.call('screenToggle', newScreenToLookThrough);
+                screenToggle(newScreenToLookThrough)
 
             } else if (currentObj.highlighted) {
 
@@ -247,7 +247,7 @@ Meteor.methods({
         })
 
     },
-    stepCounter: function(screen_id) {
+    stepCounter: function stepCounter(screen_id) {
 
         Userstories.find({
             screen_id: screen_id
@@ -267,7 +267,7 @@ Meteor.methods({
                 var newScreenToLookThrough = currentObj.connectsTo;
 
                 // call yourself with the new screen ID
-                Meteor.call("stepCounter", newScreenToLookThrough);
+                stepCounter(newScreenToLookThrough)
 
             } else {
                 return;
