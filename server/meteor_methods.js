@@ -45,6 +45,7 @@ Meteor.methods({
             project_id: project_id,
             screen_id: screen_id,
             connectsTo: null,
+            funnelSteps: 0, // needs to be updated when screens are removed
             collaborators: []
         };
         Userstories.insert(userStory);
@@ -73,6 +74,9 @@ Meteor.methods({
         }, {
             $set: {
                 connectsTo: subScreenID
+            },
+            $inc: {
+                funnelSteps: 1
             }
         })
 
@@ -244,24 +248,29 @@ Meteor.methods({
 
     },
     stepCounter: function(screen_id) {
-        var counter = 0;
+
         Userstories.find({
             screen_id: screen_id
         }).forEach(function(currentObj) {
 
-
             if (currentObj.connectsTo) {
-
-                counter += 1;
-
-                // grab the screen_id inside the connectsTo value
+                // add a step to the funnel
+                Userstories.update({
+                    _id: currentObj._id
+                }, {
+                    $inc: {
+                        funnelSteps: 1
+                    }
+                });
+                console.log(currentObj.funnelSteps)
+                    // grab the screen_id inside the connectsTo value
                 var newScreenToLookThrough = currentObj.connectsTo;
 
                 // call yourself with the new screen ID
                 Meteor.call("stepCounter", newScreenToLookThrough);
 
             } else {
-                return counter;
+                return;
             }
         })
     }

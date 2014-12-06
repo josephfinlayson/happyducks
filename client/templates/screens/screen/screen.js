@@ -10,12 +10,9 @@ Template.screen.helpers({
         return Screens.findOne({
             _id: id
         }).title
-    },
-    stepCounter: function(screen_id) {
-        console.log("hello from stepCounter in screen.js")
-        console.log(Meteor.call("stepCounter", screen_id))
     }
 });
+
 
 Template.screen.events({
     'click .renameScreen': function(e, template) {
