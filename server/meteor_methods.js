@@ -10,8 +10,7 @@ Meteor.methods({
             title: title,
             createdAt: new Date(),
             createdBy: user.username,
-            userId: user._id, // move myself to collaboraters?
-            collaborators: []
+            userId: user._id
         };
 
         Projects.insert(project);
@@ -25,10 +24,9 @@ Meteor.methods({
             createdAt: new Date(),
             createdBy: user.username,
             project_id: project_id,
-            userId: user._id, // move myself to collaboraters?
+            userId: user._id,
             isMainScreen: true,
-            showOnCanvas: false,
-            collaborators: []
+            showOnCanvas: false
         };
         Screens.insert(screen);
     },
@@ -41,12 +39,11 @@ Meteor.methods({
             createdAt: new Date(),
             createdBy: user.username,
             highlighted: false,
-            userId: user._id, // move myself to collaboraters?
+            userId: user._id, 
             project_id: project_id,
             screen_id: screen_id,
             connectsTo: null,
-            funnelSteps: 0, // needs to be updated when screens are removed
-            collaborators: []
+            funnelSteps: 0 // needs to be updated when screens are removed
         };
         Userstories.insert(userStory);
     },
@@ -63,8 +60,7 @@ Meteor.methods({
             isSubScreen: true, // nasty solution for Blaze limitation
             // {{if !isMainScreen}} doesn't seem to be
             // supported
-            showOnCanvas: true,
-            collaborators: []
+            showOnCanvas: true
         };
 
         // create the subScreen and get its _id
