@@ -2,7 +2,7 @@ Meteor.methods({
     /***************************************
      * CREATE STUFF
      ****************************************/
-    createProject: function(title) {
+    "createProject": function(title) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -15,7 +15,7 @@ Meteor.methods({
 
         Projects.insert(project);
     },
-    createScreen: function(title, project_id) {
+    "createScreen": function(title, project_id) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -25,12 +25,11 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id,
-            isMainScreen: true,
-            showOnCanvas: false
+            isMainScreen: true
         };
         Screens.insert(screen);
     },
-    createUserstory: function(title, project_id, screen_id) {
+    "createUserstory": function(title, project_id, screen_id) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -47,7 +46,7 @@ Meteor.methods({
         };
         Userstories.insert(userStory);
     },
-    createSubScreen: function(title, project_id, linkFrom, currentScreenId) {
+    "createSubScreen": function(title, project_id, linkFrom, currentScreenId) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -57,10 +56,7 @@ Meteor.methods({
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            isSubScreen: true, // nasty solution for Blaze limitation
-            // {{if !isMainScreen}} doesn't seem to be
-            // supported
-            showOnCanvas: true
+            isSubScreen: true
         };
 
         // create the subScreen and get its _id
@@ -78,7 +74,7 @@ Meteor.methods({
     /***************************************
      * DELETE STUFF
      ****************************************/
-    delete: function(collection, object) {
+    "delete": function(collection, object) {
         // TODOS!!!
         // check that the user is logged in
         // check if the user is allowed to nuke all (admin role)
@@ -118,7 +114,7 @@ Meteor.methods({
     /***************************************
      * RENAME STUFF
      ****************************************/
-    rename: function(collection, object, newTitle) {
+    "rename": function(collection, object, newTitle) {
 
         // identify the current document by ID
         var docID = {
@@ -154,7 +150,7 @@ Meteor.methods({
     /***************************************
      * FUNNEL STUFF
      ****************************************/
-    highlightToggle: function(story_id, screen_id) {
+    "highlightToggle": function(story_id, screen_id) {
 
         var story = Userstories.findOne({
             _id: story_id
@@ -196,7 +192,7 @@ Meteor.methods({
         }
 
     },
-    screenToggle: function screenToggle(screen_id) {
+    "screenToggle": function screenToggle(screen_id) {
 
         // iterate over all screens with the passed screen_id
         Userstories.find({
@@ -240,13 +236,13 @@ Meteor.methods({
         })
 
     },
-    stepCounter: function stepCounter(project_id) {
+    "stepCounter": function stepCounter(project_id) {
 
         Userstories.find({
             project_id: project_id
         }).forEach(function(currentObj) {
 
-            if (currentObj.connectsTo) {
+            if (currentObj.connectsTo && currentObj.highlighted) {
                 // add a step to the funnel
                 Userstories.update({
                     _id: currentObj._id
@@ -255,7 +251,7 @@ Meteor.methods({
                         funnelSteps: 1
                     }
                 });
-                console.log(currentObj.funnelSteps)
+                
                     // grab the screen_id inside the connectsTo value
                 var newScreenToLookThrough = currentObj.connectsTo;
 

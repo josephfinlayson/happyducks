@@ -6,7 +6,6 @@ Template.screenForm.events({
         var project_id = this._id; // grab the projectID from the projectPage data context
 
         Meteor.call("createScreen", title, project_id);
-        console.log("hello from main screen form: ", this._id)
 
         // reset the form
         var form = template.find(".screenForm");

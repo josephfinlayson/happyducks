@@ -1,23 +1,18 @@
 <template name="search">
 
 
-  {{> esAutosuggest index="screens" renderSuggestion=found }}
-  {{#esEach index="screens" id="subScreenSearch"}} {{title}} {{/esEach}}
-
-
-	{{#each resultScreens}}
-    {{title}}
-  {{/each}}
-
-
+  {{> esAutosuggest index="screens" renderSuggestion=suggestionTpl }}
+ 
 
 </template>
 
 
 <template name="customSuggestions">
     <!-- Default way of ES rendering the suggestions -->
+	{{> screen title=found}}
+
 
 	{{pre}}<span class="found">{{found}}</span>{{post}}
     <!-- "doc" gives access to the suggested document -->
-    <!-- {{doc.title}} -->
+    {{doc.title}}
 </template>

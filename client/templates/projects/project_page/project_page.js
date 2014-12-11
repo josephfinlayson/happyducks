@@ -8,7 +8,19 @@ Template.projectPage.helpers({
 		return Userstories.find({screen_id: id}) // show the userstories associated to this screen
 	},
 	listSubScreens: function () {
+        // this id is the project._id
 		var id = this._id
+        // this should return all highlighted userstories 
+        // i.e. those that should show something on the canvas
+        // Userstories.find({project_id: id, highlighted: true}).forEach(function (object) {
+        //     if(object.connectsTo){
+        //         var screen_id = object.connectsTo
+        //         return screen_id
+        //     } else {
+        //         console.log("hello else", object)
+        //         return 
+        //     }
+        // });
 		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
 	}
 });
