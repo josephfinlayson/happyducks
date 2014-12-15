@@ -8,11 +8,7 @@
 
 
 <template name="customSuggestions">
-    <!-- Default way of ES rendering the suggestions -->
-	{{> screen title=found}}
+    <!-- preview the found screen -->
+	{{> screen _id=doc._id}}
 
-
-	{{pre}}<span class="found">{{found}}</span>{{post}}
-    <!-- "doc" gives access to the suggested document -->
-    {{doc.title}}
 </template>

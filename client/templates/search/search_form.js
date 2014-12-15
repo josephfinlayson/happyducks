@@ -6,9 +6,6 @@ Template.search.created = function() {
             index: 'screens',
             // id: "subScreenSearch" // just for testing purpose
         });
-        instance.on('autosuggestSelected', function(values) {
-            console.log("auto selected: ", values)
-        });
         instance.on("searchingDone", function(searchingIsDone) {
             searchingIsDone && console.log("Done!", searchingIsDone)
         });
