@@ -23,7 +23,7 @@
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 
 
-            {{#each listScreens}} {{>screen }} {{/each}}
+            {{#each listScreens}} {{> screen }} {{/each}}
 
 
         </div>
@@ -37,24 +37,16 @@
 
 
             <!-- ROSS: STYLING THIS PROPERLY MIGHT BECOME A BIT OF A CHALLENGE :) -->
-                {{#each listSubScreens}}
-                    {{#each listUserStories}}
-                        {{#if highlighted}}
-                            {{#if connectsTo}}
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                {{>screen _id=connectsTo project_id=project_id}} <!-- removed: project_id=project_id -->
-                            </div>
-                            {{else}}
-                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                poing
-                                {{>nextStep}}
-                            </div>
-                            {{/if}}
-                       
-                        {{/if}}
-                    {{/each}}
-                {{/each}}
-             
+            {{#each listSubScreens}} {{#each listUserStories}} {{#if highlighted}} {{#if connectsTo}}
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{>screen _id=connectsTo project_id=project_id}}
+            </div>
+            {{else}}
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {{>nextStep}}
+            </div>
+            {{/if}} {{/if}} {{/each}} {{/each}}
+
         </div>
 
     </div>

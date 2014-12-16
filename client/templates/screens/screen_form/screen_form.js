@@ -14,20 +14,4 @@ Template.screenForm.events({
 });
 
 
-/*************************************
-HAVE THIS EVENT LISTENER CONNECT TO A BETTER METHOD
-PROBABLY SOMETHING LIKE createSubScreen()
-**************************************/
-Template.subScreenForm.events({
-    'submit .subScreenForm': function(e, template) {
-        e.preventDefault();
 
-        var title = template.find("#subScreenTitle").value;
-
-        Meteor.call("createSubScreen", title, this.project_id, this._id, this.screen_id);
-
-        // reset the form
-        var form = template.find(".subScreenForm");
-        form.reset();
-    }
-});

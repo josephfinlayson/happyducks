@@ -4,7 +4,6 @@ Template.search.created = function() {
     this.autorun(function() {
         var instance = EasySearch.getComponentInstance({
             index: 'screens',
-            // id: "subScreenSearch" // just for testing purpose
         });
         instance.on("searchingDone", function(searchingIsDone) {
             searchingIsDone && console.log("Done!", searchingIsDone)
@@ -19,8 +18,14 @@ Template.search.created = function() {
 Template.search.helpers({
     'suggestionTpl': function() {
         return Template.customSuggestions;
-    },
-    'isSearching': function() {
-        return instance.get('searching')
+    }
+});
+
+Template.search.events({
+    'click .panel-primary': function (e, template) {
+        e.preventDefault();
+
+        Meteor.call("connectExistingScreen", template.data.project_id, this);
+        
     }
 });

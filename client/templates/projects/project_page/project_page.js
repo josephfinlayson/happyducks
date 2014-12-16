@@ -9,19 +9,30 @@ Template.projectPage.helpers({
 	},
 	listSubScreens: function () {
         // this id is the project._id
-		var id = this._id
-        // this should return all highlighted userstories 
-        // i.e. those that should show something on the canvas
-        // Userstories.find({project_id: id, highlighted: true}).forEach(function (object) {
-        //     if(object.connectsTo){
-        //         var screen_id = object.connectsTo
-        //         return screen_id
-        //     } else {
-        //         console.log("hello else", object)
-        //         return 
-        //     }
-        // });
-		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
+		var project_id = this._id
+    
+		return Screens.find({project_id: project_id}) // this isn't secure!!! Use a subscription instead?
+        
+
+        // console.log("outside of each: ", this)
+        // Screens.find({project_id: this._id}).forEach(function (object) { // {{#each listSubScreens}}
+        //     console.log("object: ", object)
+        //     Userstories.find({screen_id: object._id}).forEach(function (object) { // {{#each listUserStories}}
+        //         console.log("userstories object: ", object)
+        //         if(object.highlighted && object.connectsTo){
+                    
+        //             return object.screen_id
+        //         } else if (object.highlighted) {
+        //             console.log("show the template now")
+        //             return Template.nextStep;
+        //         } else {
+                    
+        //             return
+        //         }
+        //     });
+        // });            
+                    
+                       
 	}
 });
 

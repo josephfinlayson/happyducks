@@ -6,9 +6,10 @@ Template.screen.helpers({
             }) // show the userstories associated to this screen
     },
     screenTitle: function() {
-        var id = this._id
+        // the datacontext keeps on changing!!!!
+        console.log("screenTitle datacontext: ", this)
         return Screens.findOne({
-            _id: id
+            _id: this._id
         }).title
     }
 });

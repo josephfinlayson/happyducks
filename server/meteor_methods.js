@@ -46,7 +46,7 @@ Meteor.methods({
         };
         Userstories.insert(userStory);
     },
-    "createSubScreen": function(title, project_id, linkFrom, currentScreenId) {
+    "createSubScreen": function(title, project_id, linkFrom) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -70,6 +70,18 @@ Meteor.methods({
         })
         Meteor.call('stepCounter', project_id);
 
+    },
+    "connectExistingScreen": function (project_id, screen_id){
+        var linkFrom = Userstories.findOne({highlighted: true, connectsTo: null})
+        console.log(linkFrom._id)
+        Userstories.update({
+            _id: linkFrom._id
+        }, {
+            $set: {
+                connectsTo: screen_id,
+            }
+        })
+        Meteor.call('stepCounter', project_id);
     },
     /***************************************
      * DELETE STUFF
