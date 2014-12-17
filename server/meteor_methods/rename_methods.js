@@ -3,7 +3,6 @@ var methods = {
      * RENAME STUFF
      ****************************************/
     rename: function(collection, object, newTitle) {
-
         // identify the current document by ID
         var docID = {
             _id: object._id
@@ -24,10 +23,6 @@ var methods = {
             console.error("something went wrong")
         }
     },
-
-    /***************************************
-     * FUNNEL STUFF
-     ****************************************/
 }
 
 Meteor.methods(methods);

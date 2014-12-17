@@ -1,7 +1,8 @@
 var methods = {
-
+    /***************************************
+     * FUNNEL STUFF
+     ****************************************/
     highlightToggle: function(story_id, screen_id) {
-
         var story = Userstories.findOne({
             _id: story_id
         })
@@ -43,7 +44,6 @@ var methods = {
 
     },
     screenToggle: function screenToggle(screen_id) {
-
         // iterate over all screens with the passed screen_id
         Userstories.find({
             screen_id: screen_id
@@ -87,7 +87,6 @@ var methods = {
 
     },
     stepCounter: function stepCounter(project_id) {
-
         Userstories.find({
             project_id: project_id
         }).forEach(function(currentObj) {
