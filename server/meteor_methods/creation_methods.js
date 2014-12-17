@@ -1,4 +1,4 @@
-Meteor.methods({
+var methods = {
 
     /***************************************
      * CREATE STUFF
@@ -98,6 +98,7 @@ Meteor.methods({
 
         switch (collection) {
             case "Projects":
+                //is this an object here?
                 Projects.remove(object); // remove the project
                 Screens.remove({
                         project_id: object
@@ -126,4 +127,6 @@ Meteor.methods({
         }
 
     }
-})
+}
+
+Meteor.methods(methods);
