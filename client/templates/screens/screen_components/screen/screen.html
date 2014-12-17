@@ -23,16 +23,16 @@
                 <!-- this span could set the badge count -->
                 <span class="badge">{{#if funnelSteps}}{{funnelSteps}}{{/if}}</span>
 
-                <img src="/images/edit.png" alt="" width="20px" height="20px" align="right" class="renameStory" data-collection="Userstories">
-                <img src="/images/trash.png" alt="Nuke!" width="20px" height="20px" class="deleteStory" align="right" data-collection="Userstories" />
+                <img src="/images/edit.png" class="renameStory imgButtons" data-collection="Userstories">
+                <img src="/images/trash.png" alt="Nuke!" class="deleteStory imgButtons"  data-collection="Userstories" />
 
                 <!-- this is where I style the highlight -->
                 {{#if highlighted}}
-                <a href="#" class="toggleStory" style="background-color: #B2FF99">{{title}}</a> {{else}}
-                <a href="#" class="toggleStory" style="">{{title}}</a> {{/if}}
-
+                <a class="toggleStory highlighted">{{title}}</a>
+                {{else}}
+                <a class="toggleStory" style="">{{title}}</a>
+                {{/if}}
             </li>
-
             {{/each}}
         </ul>
 
