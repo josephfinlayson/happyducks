@@ -26,6 +26,6 @@ Template.search.events({
         e.preventDefault();
 
         Meteor.call("connectExistingScreen", template.data.project_id, this);
-        
+
     }
 });
