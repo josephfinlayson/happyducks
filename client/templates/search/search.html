@@ -1,16 +1,11 @@
 <template name="search">
 
-
   {{> esAutosuggest index="screens" renderSuggestion=suggestionTpl }}
- 
 
 </template>
-
 
 <template name="customSuggestions">
     <!-- preview the found screen -->
  		{{> screen _id=doc._id}}
-
-	
 
 </template>

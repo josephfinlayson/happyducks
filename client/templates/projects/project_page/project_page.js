@@ -10,9 +10,8 @@ Template.projectPage.helpers({
 	listSubScreens: function () {
         // this id is the project._id
 		var project_id = this._id
-    
+
 		return Screens.find({project_id: project_id}) // this isn't secure!!! Use a subscription instead?
-        
 
         // console.log("outside of each: ", this)
         // Screens.find({project_id: this._id}).forEach(function (object) { // {{#each listSubScreens}}
@@ -20,19 +19,19 @@ Template.projectPage.helpers({
         //     Userstories.find({screen_id: object._id}).forEach(function (object) { // {{#each listUserStories}}
         //         console.log("userstories object: ", object)
         //         if(object.highlighted && object.connectsTo){
-                    
+
         //             return object.screen_id
         //         } else if (object.highlighted) {
         //             console.log("show the template now")
         //             return Template.nextStep;
         //         } else {
-                    
+
         //             return
         //         }
         //     });
-        // });            
-                    
-                       
+        // });
+
+
 	}
 });
 
