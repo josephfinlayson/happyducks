@@ -5,22 +5,16 @@
     <!-- the data context is the current screen object in whatever #each is calling this template -->
     <div class="panel panel-primary" data-id="{{_id}}">
 
-        <span class="connector" style="width:25%; height:5px; position:absolute; top:20px; left:100%; margin-left:-15px; background:#337ab7;"></span>
-
+        <span class="connector"></span>
         <div class="panel-heading">
-
             <h3 class="panel-title">{{screenTitle}}
             <img src="/images/edit.png"  class="renameScreen imgButtons" data-collection="Screens">
             <img src="/images/trash.png" class="deleteScreen imgButtons" alt="Nuke!"  data-collection="Screens" />
             </h3>
-
-
         </div>
         <div class="panel-body">
             {{> userStoryForm}}
         </div>
-
-
         <!-- the userstories are contained in a listgroup -->
         <ul class="list-group">
             {{#each listUserStories}}
