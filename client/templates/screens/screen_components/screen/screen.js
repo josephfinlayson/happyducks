@@ -5,11 +5,10 @@ Template.screen.helpers({
                 screen_id: id
             }) // show the userstories associated to this screen
     },
-    screenTitle: function() {
-        // the datacontext keeps on changing!!!!
-        console.log("screenTitle datacontext: ", this)
+    screenTitle: function(id) {
+        //pass in ID directly
         return Screens.findOne({
-            _id: this._id
+            _id: id
         }).title
     }
 });
@@ -48,11 +47,7 @@ Template.screen.events({
     'click .renameStory': function(e, template) {
         e.preventDefault();
 
-        var new_title = prompt("new title please");
-
-        // var collection = $("#renameStory").data("collection");
-
-        //works for me!
+        var new_title = (prompt("new title please") || "bad title")
         var collection = template.find(".renameStory").dataset.collection;
 
         Meteor.call("rename", collection, this, new_title)
