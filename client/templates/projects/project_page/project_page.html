@@ -1,39 +1,31 @@
 <template name="projectPage">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="panel-heading">
-                <h3 class="panel-title">Project Title: {{title}}</h3>
 
+
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <a class="navbar-brand" href="/">CURRENT PROJECT TITLE</a>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{urlFor 'dashboard'}}">Prototype View</a>
+                    </li>
+                    <li><a href="{{urlFor 'dashboard'}}">Task View</a>
+                    </li>
+                    <li><a href="{{urlFor 'dashboard'}}">App preview</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p>Add a new screen: {{> screenForm}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <!-- start screens list -->
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            {{#each listScreens}} {{> screen }} {{/each}}
+        </nav>
 
-        </div>
-        <!-- end screens list -->
-        <!-- start canvas -->
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 canvas">
-            <!-- ROSS: STYLING THIS PROPERLY MIGHT BECOME A BIT OF A CHALLENGE :) -->
-            {{#each listSubScreens}} {{#each listUserStories}} {{#if highlighted}} {{#if connectsTo}}
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{>screen _id=connectsTo project_id=project_id}}
-            </div>
-            {{else}}
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{>nextStep}}
-            </div>
-            {{/if}} {{/if}} {{/each}} {{/each}}
 
-        </div>
 
-    </div>
-    <!-- end canvas -->
+        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="https://trello.com/b/Jzkll8ZB/happy-ducks">Trello board</a>
+                </li>
+            </ul>
+        </nav>
+
+
+    
 </template>
