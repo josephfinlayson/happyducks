@@ -49,6 +49,7 @@ Template.prototypeView.helpers({
             }
         }).fetch()
 
+        console.log(query, id)
         return !!query.length
     },
     isHighlighted: function(id) {
@@ -58,8 +59,13 @@ Template.prototypeView.helpers({
         }).fetch()
 
         return !!query.length
+    },
+    userStoryDataContext: function(id) {
+        return Userstories.findOne({
+            screen_id: id,
+            highlighted: true,
+        })
     }
-
 });
 
 Template.prototypeView.events({

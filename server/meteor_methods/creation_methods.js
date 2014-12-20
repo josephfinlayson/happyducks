@@ -1,3 +1,4 @@
+
 var methods = {
     /***************************************
      * CREATE STUFF
@@ -46,6 +47,7 @@ var methods = {
         };
         Userstories.insert(userStory);
     },
+
     createSubScreen: function(title, project_id, linkFrom) {
         check(Meteor.userId(), String);
         check(title, String);
@@ -59,7 +61,8 @@ var methods = {
             isSubScreen: true
         };
 
-        // create the subScreen and get its _id
+        console.log(subScreen);
+        //  create the subScreen and get its _id
         var subScreenID = Screens.insert(subScreen);
         Userstories.update({
             _id: linkFrom
@@ -68,22 +71,31 @@ var methods = {
                 connectsTo: subScreenID,
             }
         })
-        Meteor.call('stepCounter', project_id);
+        // Meteor.call('stepCounter', project_id);
 
     },
+
+    //called in search with the following parameters
+    // Meteor.call("connectExistingScreen", template.data.project_id, this);
     connectExistingScreen: function(project_id, screen_id) {
+
+        //This is surely wrong, right? there are multiple userStories that can be
+        //highlighted without a linkFrom value?
         var linkFrom = Userstories.findOne({
             highlighted: true,
             connectsTo: null
-        })
-        console.log(linkFrom._id)
+        });
+
+        console.log("proj",project_id, "scree", screen_id);
+
         Userstories.update({
             _id: linkFrom._id
         }, {
             $set: {
-                connectsTo: screen_id,
+                connectsTo: screen_id
             }
         })
+
         Meteor.call('stepCounter', project_id);
     }
 }

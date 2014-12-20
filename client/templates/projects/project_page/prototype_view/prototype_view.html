@@ -23,16 +23,24 @@
         <div class="col-md-9 canvas">
             <!-- ROSS: STYLING THIS PROPERLY MIGHT BECOME A BIT OF A CHALLENGE :) -->
             {{#each listSubScreens}}
-             {{#if connectsToAScreenAndIsHighlighted _id }}
-                {{>screen _id=connectsTo
-            project_id=project_id}}
+
+            {{#if connectsToAScreenAndIsHighlighted _id }}
+
+            {{#with userStoryDataContext _id}}
+                {{>screen}}
+            {{/with}}
+
             <div class="col-md-3">
 
             </div>
             {{else}}
             {{#if isHighlighted _id}}
             <div class="col-md-3">
+
+            {{#with userStoryDataContext _id}}
                 {{>nextStep}}
+            {{/with}}
+
             </div>
             {{/if}}
             {{/if}}
