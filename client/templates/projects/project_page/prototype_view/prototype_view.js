@@ -1,17 +1,24 @@
 Template.prototypeView.helpers({
-	listScreens: function () {
-		var id = this._id
-		return Screens.find({project_id: id, isMainScreen: true}) // this isn't secure!!! Use a subscription instead?
-	},
-	listUserStories: function () {
-		var id = this._id // grab the ID of the current screen
-		return Userstories.find({screen_id: id}) // show the userstories associated to this screen
-	},
-	listSubScreens: function () {
+    listScreens: function() {
+        var id = this._id
+        return Screens.find({
+                project_id: id,
+                isMainScreen: true
+            }) // this isn't secure!!! Use a subscription instead?
+    },
+    listUserStories: function() {
+        var id = this._id // grab the ID of the current screen
+        return Userstories.find({
+                screen_id: id
+            }) // show the userstories associated to this screen
+    },
+    listSubScreens: function() {
         // this id is the project._id
-		var project_id = this._id
+        var project_id = this._id
 
-		return Screens.find({project_id: project_id}) // this isn't secure!!! Use a subscription instead?
+        return Screens.find({
+                project_id: project_id
+            }) // this isn't secure!!! Use a subscription instead?
 
         // console.log("outside of each: ", this)
         // Screens.find({project_id: this._id}).forEach(function (object) { // {{#each listSubScreens}}
@@ -30,13 +37,33 @@ Template.prototypeView.helpers({
         //         }
         //     });
         // });
+    },
 
+    connectsToAScreenAndIsHighlighted: function(id) {
+        var query = Userstories.find({
+            screen_id: id,
+            highlighted: true,
+            //not equal to null
+            connectsTo: {
+                $ne: null
+            }
+        }).fetch()
 
-	}
+        return !!query.length
+    },
+    isHighlighted: function(id) {
+        var query = Userstories.find({
+            screen_id: id,
+            highlighted: true,
+        }).fetch()
+
+        return !!query.length
+    }
+
 });
 
 Template.prototypeView.events({
-    'click .toggleStory': function (e, template) {
+    'click .toggleStory': function(e, template) {
         e.preventDefault();
 
         // check which story was clicked
