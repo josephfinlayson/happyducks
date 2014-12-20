@@ -20,7 +20,6 @@ var methods = {
                     }) // remove the stories
                 break;
             case "Screens":
-            console.log(object);
                 Screens.remove({
                         _id: object
                     }) // remove the screens

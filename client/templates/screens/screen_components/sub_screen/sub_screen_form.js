@@ -1,26 +1,18 @@
 Template.subScreenForm.events({
     'submit .subScreenForm': function(e, template) {
         e.preventDefault();
-        var title = template.find("#subScreenTitle");
 
-        console.log("submit SubScreen", this, title);
-
-        console.log("calling")
-        Meteor.call("createSubScreen", title.value, this.project_id, this._id);
-        console.log("finished call")
+        var title = template.find("#subScreenTitle").value;
+        var project_id = this.project_id
+        Meteor.call("createSubScreen", title, project_id, this._id);
 
         // reset the form
-        template.find(".subScreenForm").reset()
+        var form = template.find(".subScreenForm");
+        form.reset();
     }
 });
 
 Template.subScreenForm.helpers({
-    userStoryTitle: function () {
-        var story = Userstories.findOne({
-            screen_id: 'gZjNWL2n2kQNZTgiR',
-            highlighted: true
-        })
-
-        return story.title ? story.title : 'No title'
+    currentProject: function () {
     }
 });

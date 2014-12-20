@@ -7,19 +7,9 @@ Template.screen.helpers({
     },
     screenTitle: function(id) {
         //pass in ID directly
-        var screen = Screens.findOne({
+        return Screens.findOne({
             _id: id
-        })
-        console.log("this", this)
-        return screen.title ? screen.title : "No title"
-
-    },
-    screenDataContext: function() {
-        if (this.screen_id) {
-            return Screens.findOne(this.screen_id)
-        } else {
-            return this
-        }
+        }).title
     }
 });
 
@@ -29,8 +19,14 @@ Template.screen.events({
         e.preventDefault();
 
         var new_title = prompt("new title please");
+
+        // PURE JS DOESN'T WORK HERE? WHY?
         var collection = $(".renameScreen").data("collection");
+
+        // template.find("#rename").dataset.collection;
+
         Meteor.call("rename", collection, this, new_title)
+
     }
 });
 
@@ -39,9 +35,9 @@ Template.screen.events({
         e.preventDefault();
 
         var collection = template.find(".deleteScreen").dataset.collection;
-        console.log(collection, this._id)
-            // UNCOMMENT FOR CONFIRM POPUP
-            // if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
+
+        // UNCOMMENT FOR CONFIRM POPUP
+        // if (confirm("You sure? This cannot be un-done\nALL STORIES INSIDE THIS SCREEN WILL DIE!")) {
         Meteor.call("delete", collection, this._id);
         // }
     }

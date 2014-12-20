@@ -3,7 +3,7 @@
     <!-- the main div contains the Screen._id as its # -->
     <!-- the data context is the current screen object in whatever #each is calling this template -->
     <div class="panel panel-primary" data-id="{{_id}}">
-{{#with screenDataContext}}
+
         <span class="connector"></span>
         <div class="panel-heading">
             <!-- id is passed to the screenTitle helper,  -->
@@ -33,7 +33,6 @@
             </li>
             {{/each}}
         </ul>
-{{/with}}
 
     </div>
 
