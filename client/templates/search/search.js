@@ -25,7 +25,7 @@ Template.search.events({
     'click .panel-primary': function (e, template) {
         e.preventDefault();
 
-        Meteor.call("connectExistingScreen", template.data.project_id, this);
+        Meteor.call("connectExistingScreen", template.data.project_id, this._id);
 
     }
 });
