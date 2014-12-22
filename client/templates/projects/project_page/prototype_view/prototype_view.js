@@ -50,3 +50,14 @@ Template.prototypeView.events({
 
     }
 });
+
+Template.prototypeView.events({
+    'click .addStep': function (e, template) {
+        e.preventDefault();
+        // THE DATA CONTEXT IS THE HIGHLIGHTED STORY
+        console.log(this)
+        
+        Meteor.call("setNewConnection", this._id, this.project_id, this.connectsTo)
+
+    }
+});
