@@ -42,7 +42,7 @@ var methods = {
             createdBy: user.username,
             project_id: project_id,
             userId: user._id,
-            isMainScreen: true
+            // isMainScreen: true
         };
         Screens.insert(screen);
     },
@@ -56,7 +56,7 @@ var methods = {
             createdBy: user.username,
             project_id: project_id,
             userId: user._id, // move myself to collaboraters?
-            isSubScreen: true
+            // isSubScreen: true
         };
 
         // create the subScreen and get its _id

@@ -1,7 +1,7 @@
 Template.prototypeView.helpers({
 	listScreens: function () {
 		var id = this._id
-		return Screens.find({project_id: id, isMainScreen: true}) // this isn't secure!!! Use a subscription instead?
+		return Screens.find({project_id: id}) // this isn't secure!!! Use a subscription instead?
 	},
 	listUserStories: function () {
 		var id = this._id // grab the ID of the current screen
