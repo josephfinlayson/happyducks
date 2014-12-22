@@ -87,6 +87,9 @@ var methods = {
         Meteor.call('stepCounter', project_id);
     },
     setNewConnection: function(story_id, project_id, existing_screen_id, new_screen_id) {
+        // change the connectsTo value to a new or existing screen value
+        
+
         // If the originally connected screen has no userStories linking to it
         // highlight it in some way
 
@@ -94,7 +97,6 @@ var methods = {
         var isOrphan = Userstories.findOne({project_id: project_id, connectsTo: existing_screen_id})
         console.log(isOrphan)
         
-        // change the connectsTo value to a new or existing screen value
         
 
     }
