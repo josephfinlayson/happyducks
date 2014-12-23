@@ -46,7 +46,7 @@ var methods = {
         };
         Screens.insert(screen);
     },
-    createSubScreen: function(title, project_id, linkFrom) {
+    createSubScreen: function(title, project_id, parentScreen_id) {
         check(Meteor.userId(), String);
         check(title, String);
         var user = Meteor.user();
@@ -59,16 +59,30 @@ var methods = {
             // isSubScreen: true
         };
 
-        // create the subScreen and get its _id
-        var subScreenID = Screens.insert(subScreen);
-        Userstories.update({
-            _id: linkFrom
-        }, {
-            $set: {
-                connectsTo: subScreenID,
-            }
+        // if a userStory in the parent screen is highlighted
+        // then set the connectsTo of that userStory to the target screen
+        var updateConnectsTo = Userstories.findOne({
+            screen_id: parentScreen_id,
+            highlighted: true
         })
-        Meteor.call('stepCounter', project_id);
+
+        if (updateConnectsTo) {
+            // create the subScreen and get its _id
+            var subScreenID = Screens.insert(subScreen);
+            console.log(this)
+            Userstories.update({
+                _id: updateConnectsTo._id
+            }, {
+                $set: {
+                    connectsTo: subScreenID,
+                }
+            })
+            Meteor.call('stepCounter', project_id);
+
+        } else {
+            // else create a new screen    
+            Screens.insert(subScreen);
+        }
 
     },
     connectExistingScreen: function(project_id, screen_id) {
@@ -88,16 +102,19 @@ var methods = {
     },
     setNewConnection: function(story_id, project_id, existing_screen_id, new_screen_id) {
         // change the connectsTo value to a new or existing screen value
-        
+
 
         // If the originally connected screen has no userStories linking to it
         // highlight it in some way
 
         // Are there any userstories pointing to the original screen?
-        var isOrphan = Userstories.findOne({project_id: project_id, connectsTo: existing_screen_id})
+        var isOrphan = Userstories.findOne({
+            project_id: project_id,
+            connectsTo: existing_screen_id
+        })
         console.log(isOrphan)
-        
-        
+
+
 
     }
 }

@@ -1,45 +1,37 @@
 <template name="prototypeView">
-	
-	    <div class="row">
+
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="panel-heading">
+            <div class="panel-heading" id="{{_id}}">
                 <h3 class="panel-title">Project Title: {{title}}</h3>
-
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p>Add a new screen: {{> screenForm}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <!-- start screens list -->
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            {{#each listScreens}} {{> screen }} {{/each}}
 
-        </div>
-        <!-- end screens list -->
-        <!-- start canvas -->
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 canvas">
-            <!-- ROSS: STYLING THIS PROPERLY MIGHT BECOME A BIT OF A CHALLENGE :) -->
-            {{#each listSubScreens}} {{#each listUserStories}} {{#if highlighted}} {{#if connectsTo}}
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                <img src="/images/add_step.png" class="addStep">
-                
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{>screen _id=connectsTo project_id=project_id}}
-            </div>
-            {{else}}
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                {{>nextStep}}
-            </div>
-            {{/if}} {{/if}} {{/each}} {{/each}}
+    <!-- start canvas -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 canvas">
+        {{#if populatedProject}}
+            
+            <!-- this always returns all screens. Kills my fancy collapsing function -->
+            {{#each conditionalScreenCursor}}
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    {{> screen}}
+                </div>
+                {{#if showNextStepForm}}
+                    {{> nextStep}}
+                {{/if}}
+            {{/each }}
 
-        </div>
+
+
+        {{else}}
+        
+            <p>Hi, please create the first screen of your project:</p>
+            {{> screenForm}} 
+
+        {{/if}}
 
     </div>
     <!-- end canvas -->
-
+    
 </template>
