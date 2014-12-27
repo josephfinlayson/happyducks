@@ -34,6 +34,7 @@ Template.prototypeView.helpers({
     },
     conditionalScreenCursor: function() {
 
+        // console.log("conditionalScreenCursor", thing, second_thing)
         // start by figuring out if there are screens
         var screensExist = Screens.findOne({
             project_id: this._id
@@ -43,10 +44,9 @@ Template.prototypeView.helpers({
         var highlightedStories = Userstories.find({
             project_id: this._id,
             highlighted: true
-        }).fetch()
+        })
 
         var screensToShow = [];
-
 
         if (screensExist && highlightedStories.length === 0) {
             // this project is empty, or only has one Screen
@@ -58,25 +58,20 @@ Template.prototypeView.helpers({
             // add the original screen to the array (is this solid? I don't think so)
             screensToShow.push(screensExist)
 
-            // iterate over the highlightedStories array and return the Screen with _id = connectsTo
-            for (var i = 0; i < highlightedStories.length; i++) {
-                // if the story is highlighted && connected
-                if (highlightedStories[i].connectsTo) {
+            // iterate over the highlightedStories cursor and return the Screen with _id = connectsTo
+            highlightedStories.forEach(function(story) {
+                if (!!story.connectsTo) {
                     // return the screen with _id = connectsTo
                     screensToShow.push(Screens.findOne({
-                        _id: highlightedStories[i].connectsTo
+                        _id: story.connectsTo
                     }))
                 } else {
                     screensToShow.push(Screens.findOne({
-                        _id: highlightedStories[i].screen_id
+                        _id: story.screen_id
                     }))
                 }
-            };
 
-            // NASTY HACK CAUSE I'M DOUBLING SOMEWHERE AND I'M LAZY
-            screensToShow = _.uniq(screensToShow, false, function(p) {
-                return p._id;
-            })
+            });
 
             return screensToShow
         }
