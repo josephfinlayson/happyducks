@@ -46,18 +46,18 @@ Template.prototypeView.helpers({
         }).fetch()
 
         var screensToShow = [];
-        
+
 
         if (screensExist && highlightedStories.length === 0) {
             // this project is empty, or only has one Screen
             screensToShow.push(screensExist)
-            
+
             return screensToShow
-            
+
         } else {
             // add the original screen to the array (is this solid? I don't think so)
             screensToShow.push(screensExist)
-            
+
             // iterate over the highlightedStories array and return the Screen with _id = connectsTo
             for (var i = 0; i < highlightedStories.length; i++) {
                 // if the story is highlighted && connected
@@ -74,8 +74,10 @@ Template.prototypeView.helpers({
             };
 
             // NASTY HACK CAUSE I'M DOUBLING SOMEWHERE AND I'M LAZY
-            screensToShow = _.uniq(screensToShow, false, function(p){return p._id;})
-            
+            screensToShow = _.uniq(screensToShow, false, function(p) {
+                return p._id;
+            })
+
             return screensToShow
         }
 
