@@ -33,10 +33,19 @@ Template.prototypeView.helpers({
         }
     },
     conditionalScreenCursor: function() {
+        // Requirements //
 
-        // start by figuring out if there are screens
-        var screensExist = Screens.findOne({
-            project_id: this._id
+        /*
+            Show screens that are connected to highlighted story
+            Show at least one screen
+                -- this screen should be the 'first screen' (a flag that is passed)
+                   to Meteor methods.
+         */
+
+        // start by fetching the first screen
+        var firstScreen = Screens.findOne({
+            project_id: this._id,
+            first_screen: true
         })
 
         // then figure out if any stories are highlighted
@@ -47,12 +56,11 @@ Template.prototypeView.helpers({
 
         var screensToShow = [];
 
-        if (screensExist && highlightedStories.length === 0) {
+        screensToShow.push(firstScreen)
+
+        if (firstScreen && highlightedStories.length === 0) {
             // this project is empty, or only has one Screen
-            screensToShow.push(screensExist)
-
             return screensToShow
-
         } else {
 
             // iterate over the highlightedStories cursor and return the Screen with _id = connectsTo
@@ -60,14 +68,14 @@ Template.prototypeView.helpers({
                 if (!!story.connectsTo) {
                     // return the screen with _id = connectsTo
                     screensToShow.push(Screens.findOne({
-                        _id: story.connectsTo
-                    }))
-                } else {
-                    screensToShow.push(Screens.findOne({
-                        _id: story.screen_id
+                        _id: story.connectsTo,
+                        //generally highlighted screens are never the first screen
+                        //but this can happen when user stories connect to a 'first_screen'
+                        first_screen: {
+                            $ne: true
+                        }
                     }))
                 }
-
             });
 
             return screensToShow

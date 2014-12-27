@@ -1,11 +1,13 @@
 Template.subScreenForm.events({
     'submit .subScreenForm': function(e, template) {
         e.preventDefault();
-
         var title = template.find("#subScreenTitle").value;
-        console.log("subscreenform: ", this)
-        
-        Meteor.call("createSubScreen", title, this.project_id, this._id);
+
+        Meteor.call("createScreen", {
+            title: title,
+            project_id: this.project_id,
+            parent_screen_id: this._id
+        });
 
         // reset the form
         var form = template.find(".subScreenForm");
@@ -14,6 +16,5 @@ Template.subScreenForm.events({
 });
 
 Template.subScreenForm.helpers({
-    currentProject: function () {
-    }
+    currentProject: function() {}
 });
