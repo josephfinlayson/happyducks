@@ -4,10 +4,6 @@ Template.screen.helpers({
         return Userstories.find({
                 screen_id: id
             }) // show the userstories associated to this screen
-    },
-    helpThis: function(id) {
-        //pass in ID directly
-        return  JSON.stringify(this);
     }
 });
 
