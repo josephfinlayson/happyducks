@@ -34,7 +34,6 @@ Template.prototypeView.helpers({
     },
     conditionalScreenCursor: function() {
 
-        // console.log("conditionalScreenCursor", thing, second_thing)
         // start by figuring out if there are screens
         var screensExist = Screens.findOne({
             project_id: this._id
