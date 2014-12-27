@@ -54,8 +54,6 @@ Template.prototypeView.helpers({
             return screensToShow
 
         } else {
-            // add the original screen to the array (is this solid? I don't think so)
-            screensToShow.push(screensExist)
 
             // iterate over the highlightedStories cursor and return the Screen with _id = connectsTo
             highlightedStories.forEach(function(story) {
