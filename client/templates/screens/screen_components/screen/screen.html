@@ -7,7 +7,7 @@
         <!-- <span class="connector"></span> -->
         <div class="panel-heading">
             <!-- id is passed to the screenTitle helper,  -->
-            <h3 class="panel-title">{{screenTitle _id}}
+            <h3 class="panel-title">{{title}}
             <img src="/images/edit.png"  class="renameScreen imgButtons" data-collection="Screens">
             <img src="/images/trash.png" class="deleteScreen imgButtons" alt="Nuke!"  data-collection="Screens" />
             </h3>
@@ -16,6 +16,10 @@
             {{> userStoryForm}}
         </div>
         <!-- the userstories are contained in a listgroup -->
+        <div class="panel-body">
+<pre> {{helpThis}}</pre>
+
+        </div>
         <ul class="list-group">
             {{#each listUserStories}}
             <!-- The cursor data context is a Userstory with this screen_id -->
