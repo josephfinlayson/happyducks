@@ -2,43 +2,44 @@
     <!-- the screen design is currently a panel -->
     <!-- the main div contains the Screen._id as its # -->
     <!-- the data context is the current screen object in whatever #each is calling this template -->
-    <div class="panel panel-primary" data-id="{{_id}}">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 
-        <!-- <span class="connector"></span> -->
-        <div class="panel-heading">
-            <!-- id is passed to the screenTitle helper,  -->
-            <h3 class="panel-title">{{title}}
+        <div class="panel panel-primary" data-id="{{_id}}">
+
+            <!-- <span class="connector"></span> -->
+            <div class="panel-heading">
+                <!-- id is passed to the screenTitle helper,  -->
+                <h3 class="panel-title">{{title}}
             <img src="/images/edit.png"  class="renameScreen imgButtons" data-collection="Screens">
             <img src="/images/trash.png" class="deleteScreen imgButtons" alt="Nuke!"  data-collection="Screens" />
             </h3>
-        </div>
-        <div class="panel-body">
-            {{> userStoryForm}}
-        </div>
-        <!-- the userstories are contained in a listgroup -->
-        <div class="panel-body">
-            {{{helpThis}}}
-        </div>
-        <ul class="list-group">
-            {{#each listUserStories}}
-            <!-- The cursor data context is a Userstory with this screen_id -->
-            <li class="list-group-item">
-                <!-- this span could set the badge count -->
-                <span class="badge">{{#if funnelSteps}}{{funnelSteps}}{{/if}}</span>
+            </div>
+            <div class="panel-body">
+                {{> userStoryForm}}
+            </div>
+            <!-- the userstories are contained in a listgroup -->
+            <div class="panel-body">
+                {{{helpThis}}}
+            </div>
+            <ul class="list-group">
+                {{#each listUserStories}}
+                <!-- The cursor data context is a Userstory with this screen_id -->
+                <li class="list-group-item">
+                    <!-- this span could set the badge count -->
+                    <span class="badge">{{#if funnelSteps}}{{funnelSteps}}{{/if}}</span>
 
-                <img src="/images/edit.png" class="renameStory imgButtons" data-collection="Userstories">
-                <img src="/images/trash.png" alt="Nuke!" class="deleteStory imgButtons" data-collection="Userstories" />
+                    <img src="/images/edit.png" class="renameStory imgButtons" data-collection="Userstories">
+                    <img src="/images/trash.png" alt="Nuke!" class="deleteStory imgButtons" data-collection="Userstories" />
+                    <!-- this is where I style the highlight -->
+                    {{#if highlighted}}
+                    <a class="toggleStory highlighted">{{title}}</a> {{else}}
+                    <a class="toggleStory" style="">{{title}}</a> {{/if}}
+                </li>
+                {{/each}}
+            </ul>
 
-                <!-- this is where I style the highlight -->
-                {{#if highlighted}}
-                <a class="toggleStory highlighted">{{title}}</a> {{else}}
-                <a class="toggleStory" style="">{{title}}</a> {{/if}}
-            </li>
-            {{/each}}
-        </ul>
+        </div>
 
     </div>
-
-
 
 </template>
