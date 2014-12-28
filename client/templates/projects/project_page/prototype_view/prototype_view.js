@@ -32,6 +32,17 @@ Template.prototypeView.helpers({
             return
         }
     },
+    connectedToExistingScreen: function() {
+        function isEmpty(obj) {
+                return Object.keys(obj).length === 0;
+            }
+            // decide whether to show the nextStep form or the nextScreen
+        console.log(this, "connectedToExistingScreen")
+            //hack! -> obviously make this better
+        if (isEmpty(this)) {
+            return true;
+        }
+    },
     conditionalScreenCursor: function() {
         // Requirements //
 

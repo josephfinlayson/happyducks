@@ -1,0 +1,27 @@
+<!-- Provides UI functionality for when a user story links to an existing screen -->
+
+<!-- TODO Render details of a screen in a readonly way, provide link to screen if on a different project -->
+<template name="existing_screen">
+    <div class="col-md-3">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"> {{title}} </h3>
+            </div>
+            <div class="panel-body">
+                This user story is connected to an existing screen -> {{screenDetails}}
+            </div>
+            <ul class="list-group">
+                {{#each listUserStories}}
+                <li class="list-group-item">
+                    <a class="toggleStory" style="">{{title}}</a>
+                </li>
+                {{/each}}
+            </ul>
+
+        </div>
+
+    </div>
+
+
+</template>
