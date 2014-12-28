@@ -73,9 +73,6 @@ var methods = {
             // else create a new screen
             Screens.insert(screen);
         }
-
-
-        Screens.insert(screen);
     },
     connectExistingScreen: function(project_id, screen_id) {
         var linkFrom = Userstories.findOne({
@@ -89,6 +86,8 @@ var methods = {
                 connectsTo: screen_id,
             }
         })
+
+
         Meteor.call('stepCounter', project_id);
     },
     setNewConnection: function(story_id, project_id, existing_screen_id, new_screen_id) {
