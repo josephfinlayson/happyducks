@@ -17,15 +17,20 @@ Template.search.created = function() {
 
 Template.search.helpers({
     'suggestionTpl': function() {
-        return Template.customSuggestions;
+        return Template.searchDisplay;
+    }
+});
+
+Template.searchDisplay.helpers({
+    'screenDetails': function() {
+        return Screens.findOne(this.id)
     }
 });
 
 Template.search.events({
-    'click .panel-primary': function (e, template) {
+    'click .searchItem': function (e, template) {
         e.preventDefault();
-
-        Meteor.call("connectExistingScreen", template.data.project_id, this._id);
-
+        console.log(this.doc.project_id, this.id)
+        Meteor.call("connectExistingScreen", this.doc.project_id, this.id);
     }
 });
