@@ -18,9 +18,25 @@ Template.search.helpers({
     suggestionTpl: function() {
         return Template.searchDisplay;
     },
-    searchPlaceholder: function(){
+    searchPlaceholder: function(results) {
         //return 'search if searchable items, add new screen if not
-        return "search"
+        Tracker.autorun(function() {
+            var instance = EasySearch.getComponentInstance({
+                index: 'screens'
+            });
+
+            instance.on('total', function(total) {
+                // If no values found in search, make clear to user that if
+                // they submit they'll be adding a new screen
+                if (total === 0) {
+                    Session.set("search", "Add new screen")
+                } else {
+                    Session.set("search", "Add existing screen")
+                }
+            });
+        });
+
+        return Session.get('search')
     }
 });
 
