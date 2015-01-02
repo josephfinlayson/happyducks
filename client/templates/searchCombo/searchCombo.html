@@ -1,0 +1,36 @@
+<template name="searchCombo">
+	<form class="subScreenForm form-inline" role="form">
+        <div class="form-group">
+        {{> esInput index="screens" placeholder="Search..." }}
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="subScreenTitle btn btn-primary">Go!</button>
+        </div>
+    </form>
+
+    {{#ifEsInputIsEmpty index="screens"}}
+        <div>Search for or add screens</div>
+    {{/ifEsInputIsEmpty}}
+
+    {{#ifEsIsSearching index="screens"}}
+        <div>Loading...</div>
+    {{else}}
+        <div class="results-wrapper">
+            {{#esEach index="screens"}}
+                    <ul class="searchItem">
+        <li>Title: "{{screenDetails.title}}"</li>
+        <li>Project: {{screenDetails.project_id}}</li>
+        <li>id: {{screenDetails._id}}</li>
+    </ul>
+            {{/esEach}}
+        </div>
+
+        {{> esLoadMoreButton index="screens"}}
+    {{/ifEsIsSearching}}
+
+    {{#ifEsHasNoResults index="screens"}}
+        <div class="no-results">Hit Enter to add a new screen</div>
+    {{/ifEsHasNoResults}}
+
+</template>
